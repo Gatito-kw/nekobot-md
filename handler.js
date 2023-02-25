@@ -469,10 +469,12 @@ export async function handler(chatUpdate) {
                     fail('private', m, this)
                     continue
                 }
+                /*
                 if (plugin.register == true && _user.registered == false) { // Butuh daftar?
                     fail('unreg', m, this)
                     continue
                 }
+                */
                 m.isCommand = true
                 let xp = 'exp' in plugin ? parseInt(plugin.exp) : 17 // XP Earning per command
                 if (xp > 200)
@@ -702,19 +704,19 @@ Untuk mematikan fitur ini, ketik
 
 
 global.dfail = (type, m, conn) => {
-    let msg = {
-        rowner: 'Perintah ini hanya dapat digunakan oleh _*OWWNER!1!1!*_',
-        owner: 'Perintah ini hanya dapat digunakan oleh _*Owner Bot*_!',
-        mods: 'Perintah ini hanya dapat digunakan oleh _*Moderator*_ !',
-        premium: 'Perintah ini hanya untuk member _*Premium*_ !',
-        group: 'Perintah ini hanya dapat digunakan di grup!',
-        private: 'Perintah ini hanya dapat digunakan di Chat Pribadi!',
-        admin: 'Perintah ini hanya untuk *Admin* grup!',
-        botAdmin: 'Jadikan bot sebagai *Admin* untuk menggunakan perintah ini!',
-        unreg: 'Silahkan daftar untuk menggunakan fitur ini dengan cara mengetik:\n\n*#daftar nama.umur*\n\nContoh: *#daftar Manusia.16*',
-        restrict: 'Fitur ini di *disable*!'
-    }[type]
-    if (msg) return m.reply(msg)
+   let msg = {
+      rowner: '*🚩 Este comando solo puede ser utilizado por el Creador de la Bot.*',
+      owner: '*🚩 Este comando solo puede ser utilizado por el Creador de la Bot.*',
+      mods: '*🚩 Este comando solo puede ser utilizado por los Moderatores de la Bot.*',
+      premium: '*🚩 Este comando solo puede ser utilizado por Usuarios Premium.*',
+      group: '*🚩 Este comando solo puede ser utilizado en Grupos.*',
+      private: '*🚩 Este comando solo puede ser utilizado en mi Chat Privado.*',
+      admin: '*🚩 Este comando solo puede ser utilizado por los Administradores del Grupo.*',
+      botAdmin: '*🚩 La bot deve ser Administradora para ejecutar este Comando.*',
+      // unreg: 'Silahkan daftar untuk menggunakan fitur ini dengan cara mengetik:\n\n*#daftar nama.umur*\n\nContoh: *#daftar Manusia.16*',
+      restrict: '*🚩 Esta función esta Deshabilitada.*'
+   }[type]
+   if (msg) return m.reply(msg)
 }
 
 let file = Helper.__filename(import.meta.url, true)

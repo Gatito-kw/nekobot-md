@@ -1,12 +1,42 @@
-import { facebookdl, facebookdlv2 } from '@bochilteam/scraper'
-let handler = async (m, { conn, args, usedPrefix, command }) => {
-    if (!args[0]) throw `Use example ${usedPrefix}${command} https://fb.watch/azFEBmFRcy/`
-    const { result } = await facebookdl(args[0]).catch(async _ => await facebookdlv2(args[0]))
-    for (const { url, isVideo } of result.reverse()) conn.sendFile(m.chat, url, `facebook.${!isVideo ? 'bin' : 'mp4'}`, `🔗 *Url:* ${url}`, m)
-}
-handler.help = ['facebook'].map(v => v + ' <url>')
-handler.tags = ['downloader']
+import needle from 'needle'
+import cheerio from 'cheerio'
 
-handler.command = /^((facebook|fb)(downloder|dl)?)$/i
+let handler = async (m, { conn, args, usedPrefix, command }) => {
+   if (!args[0]) throw `Use example ${usedPrefix}${command} https://fb.watch/azFEBmFRcy/`
+   let res = await facebookDl(args[0])
+   await m.reply(`${JSON.stringify(res, null, 1)}`)
+}
+
+handler.help = ['facebook']
+handler.tags = ['downloader']
+handler.command = ['facebook', 'fbdl']
 
 export default handler
+
+async function facebookDl(link) {
+  try {
+    let token, getToken = await needle('get', 'https://www.getvid.io')
+    try {
+      const $ = cheerio.load(getToken.body)
+      token = $('input[name="token"]').val()
+    } catch (error) {
+      return { error: true, phase: 1, reason: error }
+    }
+    const
+      data = {
+        url: link,
+        token,
+      },
+      headers = {
+        "Content-Type": "application/json"
+      },
+      response = await needle('post','https://www.getfvid.io/wp-json/aio-dl/video-data', data, headers)
+    try {
+      return response.body
+    } catch (error) {
+      return { error: true, phase: 2, reason: error}
+    }
+  } catch (error) {
+    return { error: true, phase: 0, reason: error }
+  }
+}

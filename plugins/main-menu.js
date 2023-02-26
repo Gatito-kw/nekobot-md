@@ -94,9 +94,9 @@ let handler = async (m, { conn, text, usedPrefix, __dirname }) => {
                mediaType: 1,
                renderLargerThumbnail: true,
                sourceUrl: 'https://chat.whatsapp.com/NEKO',
-               thumbnail: imgbot.nekologo,
-               thumbnailUrl: imgbot.nekologo,
-               title: textbot.title,
+               thumbnail: global.imgbot.neko3,
+               thumbnailUrl: global.imgbot.neko3,
+               title: global.textbot.footer,
             }
          }
       }}, { quoted: m })

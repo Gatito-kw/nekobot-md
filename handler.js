@@ -469,25 +469,15 @@ export async function handler(chatUpdate) {
                     fail('private', m, this)
                     continue
                 }
-                /*
-                if (plugin.register == true && _user.registered == false) { // Butuh daftar?
-                    fail('unreg', m, this)
-                    continue
-                }
-                */
                 m.isCommand = true
-                let xp = 'exp' in plugin ? parseInt(plugin.exp) : 17 // XP Earning per command
+                let xp = 'exp' in plugin ? parseInt(plugin.exp) : 17
                 if (xp > 200)
-                    m.reply('Ngecit -_-') // Hehehe
+                    m.reply('Ngecit -_-')
                 else
                     m.exp += xp
                 if (!isPrems && plugin.limit && db.data.users[m.sender].limit < plugin.limit * 1) {
-                    this.reply(m.chat, `Limit anda habis, silahkan beli melalui *${usedPrefix}buy*`, m)
-                    continue // Limit habis
-                }
-                if (plugin.level > _user.level) {
-                    this.reply(m.chat, `diperlukan level ${plugin.level} untuk menggunakan perintah ini. Level kamu ${_user.level}`, m)
-                    continue // If the level has not been reached
+                    m.reply(`*🚩 No tienes suficiente limites, puedes obtener mas escribiendo ${usedPrefix}buy limit*`)
+                    continue
                 }
                 let extra = {
                     match,
@@ -528,9 +518,8 @@ export async function handler(chatUpdate) {
                             for (let [jid] of global.owner.filter(([number, _, isDeveloper]) => isDeveloper && number)) {
                                 let data = (await this.onWhatsApp(jid))[0] || {}
                                 if (data.exists)
-                                    m.reply(`*Plugin:* ${m.plugin}\n*Sender:* ${m.sender}\n*Chat:* ${m.chat}\n*Command:* ${usedPrefix}${command} ${args.join(' ')}\n\n\`\`\`${text}\`\`\``.trim(), data.jid)
+                                    m.reply(`*REPORTE  DE  ERROR*\n\n	◦  *Usuario* : @${m.sender.split`@`[0]}\n	◦  *Cmd* : ${usedPrefix + command}\n	◦  *Plugin* : ${m.plugin}`, data.jid, { mentions: [m.sender] }).then(_=> m.reply('*' + e.name + '* : ' + e.message))
                             }
-                        m.reply(text)
                     }
                 } finally {
                     // m.reply(util.format(_user))
@@ -542,7 +531,7 @@ export async function handler(chatUpdate) {
                         }
                     }
                     if (m.limit)
-                        m.reply(+m.limit + ' Limit terpakai')
+                        m.reply(`*-${m.limit} ${m.limit ? 'Limite' : 'Limites'}*`)
                 }
                 break
             }
@@ -702,7 +691,6 @@ Untuk mematikan fitur ini, ketik
     }
 }
 
-
 global.dfail = (type, m, conn) => {
    let msg = {
       rowner: '*🚩 Este comando solo puede ser utilizado por el Creador de la Bot.*',
@@ -713,7 +701,6 @@ global.dfail = (type, m, conn) => {
       private: '*🚩 Este comando solo puede ser utilizado en mi Chat Privado.*',
       admin: '*🚩 Este comando solo puede ser utilizado por los Administradores del Grupo.*',
       botAdmin: '*🚩 La bot deve ser Administradora para ejecutar este Comando.*',
-      // unreg: 'Silahkan daftar untuk menggunakan fitur ini dengan cara mengetik:\n\n*#daftar nama.umur*\n\nContoh: *#daftar Manusia.16*',
       restrict: '*🚩 Esta función esta Deshabilitada.*'
    }[type]
    if (msg) return m.reply(msg)
@@ -722,6 +709,6 @@ global.dfail = (type, m, conn) => {
 let file = Helper.__filename(import.meta.url, true)
 watchFile(file, async () => {
     unwatchFile(file)
-    console.log(chalk.redBright("Update 'handler.js'"))
-    if (Connection.reload) console.log(await Connection.reload(await Connection.conn))
+    Connection.conn.logger.info("Update 'handler.js'")
+    if (Connection.reload) await Connection.reload(await Connection.conn)
 })

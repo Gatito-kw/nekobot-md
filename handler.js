@@ -293,7 +293,7 @@ export async function handler(chatUpdate) {
                 if (!'autoRead' in settings)
                    settings.autoRead = false
                 if (!('restrict' in settings))
-                .  settings.restrict = false
+                   settings.restrict = false
             } else db.data.settings[this.user.jid] = {
                 self: false,
                 autoRead: false,

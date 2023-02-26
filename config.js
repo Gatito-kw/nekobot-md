@@ -31,6 +31,7 @@ global.APIKeys = {
 global.imgbot = {
    neko1: readFileSync('./src/image/neko-1.jpg'),
    neko2: readFileSync('./src/image/neko-2.jpg'),
+   neko3: readFileSync('./src/image/neko-3.jpg'),
    noprofile: readFileSync('./src/image/no-profile.jpg'),
    noprofileurl: 'https://i.ibb.co/fp6t21w/avatar.jpg',
 }

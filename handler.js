@@ -288,12 +288,15 @@ export async function handler(chatUpdate) {
             let settings = db.data.settings[this.user.jid]
             if (typeof settings !== 'object') db.data.settings[this.user.jid] = {}
             if (settings) {
-                if (!('self' in settings)) settings.self = false
-                if (!('autoread' in settings)) settings.autoread = false
-                if (!('restrict' in settings)) settings.restrict = false
+                if (!('self' in settings))
+                   settings.self = false
+                if (!'autoRead' in settings)
+                   settings.autoRead = false
+                if (!('restrict' in settings))
+                .  settings.restrict = false
             } else db.data.settings[this.user.jid] = {
                 self: false,
-                autoread: false,
+                autoRead: false,
                 restrict: false
             }
         } catch (e) {
@@ -585,7 +588,7 @@ export async function handler(chatUpdate) {
         } catch (e) {
             console.log(m, m.quoted, e)
         }
-        if (opts['autoread'])
+        if (db.data.settings[this.user.jid].autoRead)
             await this.readMessages([m.key])
 
     }

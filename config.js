@@ -1,4 +1,4 @@
-import { watchFile, unwatchFile } from 'fs'
+import { watchFile, unwatchFile, readFileSync } from 'fs'
 import chalk from 'chalk'
 import { fileURLToPath } from 'url'
 

@@ -157,6 +157,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
       {buttonId: `${_p}infobot`, buttonText: {displayText: 'INFO'}, type: 1},
       {buttonId: `${_p}creador`, buttonText: {displayText: 'CREADOR'}, type: 1}
     ]
+    /*
     let buttonMessage = {
       document: await conn.resize(global.imgbot.neko1, 450, 319), 
       fileName: '⌗ 【 Nᴇᴋᴏʙᴏᴛ - Oғɪᴄɪᴀʟ 】 ⋮ 🐈₊', 
@@ -177,14 +178,22 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
         "title": '作成されたボット — 尼僧', 
         "mediaType": 1, 
         "thumbnail": imgbot.neko2,
-        "renderLargerThumbnail": true,
+        "renderLargerThumbnail": false,
         "previewType": "PHOTO",
         "sourceUrl": 'https://chat.whatsapp.com/NEKO'
     }}}
    await conn.sendMessage(m.chat, buttonMessage, { quoted: m })
+   */
     
-    
-    
+    let prep = generateWAMessageFromContent(m.chat, { extendedTextMessage: { text: text.trim(), contextInfo: { mentionedJid: [m.sender], externalAdReply: {
+      mediaType: 1,
+      renderLargerThumbnail: true,
+      sourceUrl: 'https://chat.whatsapp.com/NEKO',
+      thumbnail: imgbot.neko3,
+      thumbnailUrl: imgbot.neko3,
+      title: 'ଽ `⸼ ⤹ 🐬  作成者 子猫  ‧  ねこ 🐬 ⌢ : ♡',
+   }}}}, { quoted: m })
+   await conn.relayMessage(m.chat, prep.message, { messageId: prep.key.id })
     
     /*conn.sendHydrated(m.chat, text.trim(), author, pp, 'https://github.com/BochilGaming/games-wabot', 'Github', null, null, [
       ['Donate', '/donasi'],

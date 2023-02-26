@@ -96,7 +96,7 @@ let handler = async (m, { conn, text, usedPrefix, __dirname }) => {
                sourceUrl: 'https://chat.whatsapp.com/NEKO',
                thumbnail: global.imgbot.neko3,
                thumbnailUrl: global.imgbot.neko3,
-               title: global.textbot.footer,
+               title: 'ଽ `⸼ ⤹ 🐬  作成者 子猫  ‧  ねこ 🐬 ⌢ : ♡',
             }
          }
       }}, { quoted: m })

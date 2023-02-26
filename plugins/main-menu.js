@@ -158,15 +158,15 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
       {buttonId: `${_p}creador`, buttonText: {displayText: 'CREADOR'}, type: 1}
     ]
     let buttonMessage = {
-      document: imgbot.neko1, 
+      document: await conn.resize(global.imgbot.neko1, 450, 319), 
       fileName: '⌗ 【 Nᴇᴋᴏʙᴏᴛ - Oғɪᴄɪᴀʟ 】 ⋮ 🐈₊', 
       mimetype: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 
-      jpegThumbnail: imgbot.neko1, 
+      jpegThumbnail: await conn.resize(global.imgbot.neko1, 450, 319), 
       caption: text.trim(), 
       fileLength: '9999999999999', 
       pageCount: '100', 
       mentions: [m.sender], 
-      footer: textbot.footer,
+      footer: global.textbot.footer,
       buttons: buttons, 
       headerType: 4, 
       contextInfo: {

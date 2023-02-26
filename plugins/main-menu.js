@@ -177,7 +177,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
         "title": '作成されたボット — 尼僧', 
         "mediaType": 1, 
         "thumbnail": imgbot.neko2,
-        "renderLargerThumbnail": false,
+        "renderLargerThumbnail": true,
         "previewType": "PHOTO",
         "sourceUrl": 'https://chat.whatsapp.com/NEKO'
     }}}

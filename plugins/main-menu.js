@@ -73,7 +73,7 @@ let handler = async (m, { conn, usedPrefix, __dirname }) => {
          if (menu.tags && menu.tags.includes(tag))
          if (menu.help) groups[tag].push(menu)
    }
-   let _text = `Hola @${m.sender.split`@`[0]} ${greeting}, aquí te muestro mi lista de comandos.\n\n`
+   let _text = `Hola @${m.sender.split`@`[0]} ${greeting()}, aquí te muestro mi lista de comandos.\n\n`
    for (let tag in groups) {
       _text += `   *${tag.replace(tag, tags[tag])}*\n\n`
       for (let menu of groups[tag]) {
@@ -132,8 +132,8 @@ let handler = async (m, { conn, usedPrefix, __dirname }) => {
          }
       }
    }}, { quoted: m })
-   */
    await conn.relayMessage(m.chat, prep.message, { messageId: prep.key.id })
+   */
 }
 
 handler.help = ['menu']

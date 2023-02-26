@@ -5,34 +5,47 @@ import { fileURLToPath } from 'url'
 global.owner = [
    ['51940617554', '「gatitoツ」', true],
    ['50246028932', 'Sin Nombre', true]
-  // [number, dia creator/owner?, dia developer?]
-] // Put your number here
-global.mods = [] // Want some help?
-global.prems = [] // Premium user has unlimited limit
-global.APIs = { // API Prefix
-  // name: 'https://website'
-  nrtm: 'https://nurutomo.herokuapp.com',
-  bg: 'http://bochil.ddns.net',
-  xteam: 'https://api.xteam.xyz',
-  zahir: 'https://zahirr-web.herokuapp.com',
-  zeks: 'https://api.zeks.xyz',
-  pencarikode: 'https://pencarikode.xyz',
-  LeysCoder: 'https://leyscoders-api.herokuapp.com'
+]
+
+global.mods = []
+global.prems = []
+
+global.APIs = {
+   nrtm: 'https://nurutomo.herokuapp.com',
+   bg: 'http://bochil.ddns.net',
+   xteam: 'https://api.xteam.xyz',
+   zahir: 'https://zahirr-web.herokuapp.com',
+   zeks: 'https://api.zeks.xyz',
+   pencarikode: 'https://pencarikode.xyz',
+   LeysCoder: 'https://leyscoders-api.herokuapp.com'
 }
-global.APIKeys = { // APIKey Here
-  // 'https://website': 'apikey'
-  'https://api.xteam.xyz': 'd90a9e986e18778b',
-  'https://zahirr-web.herokuapp.com': 'zahirgans',
-  'https://api.zeks.xyz': 'apivinz',
-  'https://pencarikode.xyz': 'pais',
-  'https://leyscoders-api.herokuapp.com': 'dappakntlll'
+
+global.APIKeys = {
+   'https://api.xteam.xyz': 'd90a9e986e18778b',
+   'https://zahirr-web.herokuapp.com': 'zahirgans',
+   'https://api.zeks.xyz': 'apivinz',
+   'https://pencarikode.xyz': 'pais',
+   'https://leyscoders-api.herokuapp.com': 'dappakntlll'
 }
+
+global.imgbot = {
+   neko1: readFileSync('./src/image/neko-1.jpg'),
+   neko2: readFileSync('./src/image/neko-2.jpg'),
+   nekologo: readFileSync('./src/image/neko-logo.jpg'),
+   noprofile: readFileSync('./src/image/no-profile.jpg'),
+   noprofileurl: 'https://i.ibb.co/fp6t21w/avatar.jpg',
+}
+
+global.textbot = {
+   footer: 'Simple - WhatsApp Bot - MD',
+}
+
 
 // Sticker WM
 global.packname = 'wa.me/6285713964963'
 global.author = 'Metro Bot'
 
-global.multiplier = 69 // The higher, The harder levelup
+global.multiplier = 69
 
 global.rpg = {
   emoticon(string) {
@@ -70,14 +83,9 @@ global.rpg = {
     if (!results.length) return ''
     else return emot[results[0][0]]
   },
-  // inspired from https://github.com/Fokusdotid/Family-MD/blob/main/plugins/_role.js
-  // https://github.com/BochilGaming/games-wabot/issues/389
-  // https://github.com/BochilGaming/games-wabot/issues/32
-  // Also thanks to github copilot for the idea of role name
   role(level) {
     level = parseInt(level)
     if (isNaN(level)) return { name: '', level: '' }
-    // this code make config.js to be a more understandable code
     const role = [
       { name: 'Warrior V', level: 0 }, { name: 'Warrior IV', level: 4 }, { name: 'Warrior III', level: 8 }, { name: 'Warrior II', level: 12 }, { name: 'Warrior I', level: 16 },
       { name: 'Paladin V', level: 20 }, { name: 'Paladin IV', level: 24 }, { name: 'Paladin III', level: 28 }, { name: 'Paladin II', level: 32 }, { name: 'Paladin I', level: 36 },

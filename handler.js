@@ -599,17 +599,32 @@ export async function handler(chatUpdate) {
  * @this {import('./lib/connection').Socket}
  * @param {import('@adiwajshing/baileys').BaileysEventMap<unknown>['group-participants.update']} groupsUpdate 
  */
+/*
 export async function participantsUpdate({ id, participants, action }) {
-    if (opts['self'])
-        return
-    if (this.isInit)
-        return
-    if (db.data == null)
-        await loadDatabase()
-    let chat = db.data.chats[id] || {}
-    let text = ''
-    switch (action) {
-        case 'add':
+   console.log(action)
+   if (this.isInit)
+      return !0
+   if (db.data == null)
+      await loadDatabase()
+   let chat = db.data.chats[id] || {}
+   let text = ''
+   switch (action) {
+      case 'add': {
+        
+        
+        
+         await conn.sendUrl(m.chat, _text, null, {
+            mentionedJid: [m.sender],
+            externalAdReply: {
+               mediaType: 1,
+               renderLargerThumbnail: false,
+               sourceUrl: '',
+               thumbnail: global.imgbot.neko3,
+               thumbnailUrl: global.imgbot.neko3,
+               title: 'ଽ `⸼ ⤹ 🐬  作成者 子猫  ‧  ねこ 🐬 ⌢ : ♡',
+            }
+         }, { quoted: m })
+      }
         case 'remove':
             if (chat.welcome) {
                 let groupMetadata = await Connection.store.fetchGroupMetadata(id, this.groupMetadata)
@@ -637,12 +652,13 @@ export async function participantsUpdate({ id, participants, action }) {
             break
     }
 }
-
+*/
 /**
  * Handle groups update
  * @this {import('./lib/connection').Socket}
  * @param {import('@adiwajshing/baileys').BaileysEventMap<unknown>['groups.update']} groupsUpdate 
  */
+ 
 export async function groupsUpdate(groupsUpdate) {
     if (opts['self'])
         return

@@ -1,3 +1,4 @@
+const { generateWAMessageFromContent } = (await import('@adiwajshing/baileys')).default
 import db from '../lib/database.js'
 import { promises } from 'fs'
 import { join } from 'path'

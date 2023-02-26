@@ -1,4 +1,4 @@
-console.log('Starting...')
+console.log('Iniciado Script...')
 
 import { join, dirname } from 'path'
 import { createRequire } from 'module'
@@ -9,34 +9,29 @@ import cfonts from 'cfonts';
 import { createInterface } from 'readline'
 import Helper from './lib/helper.js'
 
-// https://stackoverflow.com/a/50052194
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const require = createRequire(__dirname) // Bring in the ability to create the 'require' method
-const { name, author } = require(join(__dirname, './package.json')) // https://www.stefanjudis.com/snippets/how-to-import-json-files-in-es-modules-node-js/
+const require = createRequire(__dirname)
 const { say } = cfonts
 const rl = createInterface(process.stdin, process.stdout)
 
-say('Lightweight\nWhatsApp Bot', {
-  font: 'chrome',
-  align: 'center',
-  gradient: ['red', 'magenta']
+say("neko-md", {
+   font: "block",
+   align: "center",
+   gradient: ["green","magenta"],
 })
-say(`'${name}' By @${author.name || author}`, {
-  font: 'console',
-  align: 'center',
-  gradient: ['red', 'magenta']
+say("- Created by Gatito -", {
+   font: "console",
+   align: "center",
+   colors: ["yellow"],
 })
 
 var isRunning = false
-/**
- * Start a js file
- * @param {String} file `path/to/file`
- */
+
 function start(file) {
   if (isRunning) return
   isRunning = true
   let args = [join(__dirname, file), ...process.argv.slice(2)]
-  say([process.argv[0], ...args].join(' '), {
+  say([process.argv[0], ...args].join(''), {
     font: 'console',
     align: 'center',
     gradient: ['red', 'magenta']
@@ -47,7 +42,6 @@ function start(file) {
   })
   let p = fork()
   p.on('message', data => {
-    console.log('[RECEIVED]', data)
     switch (data) {
       case 'reset':
         p.process.kill()
@@ -61,7 +55,7 @@ function start(file) {
   })
   p.on('exit', (_, code) => {
     isRunning = false
-    console.error('Exited with code:', code)
+    console.error('❌ Codigo de Error:', code)
     if (code === 0) return
     watchFile(args[0], () => {
       unwatchFile(args[0])
@@ -72,7 +66,6 @@ function start(file) {
     if (!rl.listenerCount()) rl.on('line', line => {
       p.emit('message', line.trim())
     })
-  // console.log(p)
 }
 
 start('main.js')

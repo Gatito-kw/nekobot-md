@@ -16,7 +16,7 @@ let format = sizeFormatter({
     render: (literal, symbol) => `${literal} ${symbol}B`,
 })
 
-let handler = async (m, { conn, usedPrefix, __dirname }) => {
+let handler = async (m, { conn, text, usedPrefix, __dirname }) => {
    let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
    let d = new Date()
    let locale = 'es-ES'
@@ -85,11 +85,28 @@ let handler = async (m, { conn, usedPrefix, __dirname }) => {
    }
    _text += `${textbot.footer}`
    
+   if (text == '--simple') {
+      let prep = generateWAMessageFromContent(m.chat, { extendedTextMessage: {
+         text: _text,
+         contextInfo: {
+            mentionedJid: [m.sender],
+            externalAdReply: {
+               mediaType: 1,
+               renderLargerThumbnail: true,
+               sourceUrl: 'https://chat.whatsapp.com/NEKO',
+               thumbnail: imgbot.nekologo,
+               thumbnailUrl: imgbot.nekologo,
+               title: textbot.title,
+            }
+         }
+      }}, { quoted: m })
+      return await conn.relayMessage(m.chat, prep.message, { messageId: prep.key.id })
+   }
+   
    let buttons = [
       { buttonId: `${usedPrefix}infobot`, buttonText: { displayText: 'INFO' }, type: 1 },
       { buttonId: `${usedPrefix}creador`, buttonText: { displayText: 'CREADOR' }, type: 1 }
    ]
-    
    let buttonMessage = {
       document: await conn.resize(global.imgbot.neko1, 450, 319), 
       fileName: '⌗ 【 Nᴇᴋᴏʙᴏᴛ - Oғɪᴄɪᴀʟ 】 ⋮ 🐈₊', 
@@ -117,23 +134,6 @@ let handler = async (m, { conn, usedPrefix, __dirname }) => {
       }
    }
    await conn.sendMessage(m.chat, buttonMessage, { quoted: m })
-   /*
-   let prep = generateWAMessageFromContent(m.chat, { extendedTextMessage: {
-      text: _text,
-      contextInfo: {
-         mentionedJid: [m.sender],
-         externalAdReply: {
-            mediaType: 1,
-            renderLargerThumbnail: true,
-            sourceUrl: 'https://chat.whatsapp.com/NEKO',
-            thumbnail: imgbot.nekologo,
-            thumbnailUrl: imgbot.nekologo,
-            title: textbot.title,
-         }
-      }
-   }}, { quoted: m })
-   await conn.relayMessage(m.chat, prep.message, { messageId: prep.key.id })
-   */
 }
 
 handler.help = ['menu']

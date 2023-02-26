@@ -48,7 +48,7 @@ const defaultMenu = {
 │ 📈 Uptime: *%uptime (%muptime)*
 │ 📊 Database: %rtotalreg of %totalreg
 ╰────
-%readmore`.trimStart(),
+`.trimStart(),
   header: '╭─「 %category 」',
   body: '│ • %cmd %islimit %isPremium',
   footer: '╰────\n',
@@ -158,7 +158,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
       {buttonId: `${_p}infobot`, buttonText: {displayText: 'INFO'}, type: 1},
       {buttonId: `${_p}creador`, buttonText: {displayText: 'CREADOR'}, type: 1}
     ]
-    /*
+    
     let buttonMessage = {
       document: await conn.resize(global.imgbot.neko1, 450, 319), 
       fileName: '⌗ 【 Nᴇᴋᴏʙᴏᴛ - Oғɪᴄɪᴀʟ 】 ⋮ 🐈₊', 
@@ -184,8 +184,8 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
         "sourceUrl": 'https://chat.whatsapp.com/NEKO'
     }}}
    await conn.sendMessage(m.chat, buttonMessage, { quoted: m })
-   */
-    
+   
+    /*
     let prep = generateWAMessageFromContent(m.chat, { extendedTextMessage: { text: text.trim(), contextInfo: { mentionedJid: [m.sender], externalAdReply: {
       mediaType: 1,
       renderLargerThumbnail: true,
@@ -195,7 +195,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
       title: 'ଽ `⸼ ⤹ 🐬  作成者 子猫  ‧  ねこ 🐬 ⌢ : ♡',
    }}}}, { quoted: m })
    await conn.relayMessage(m.chat, prep.message, { messageId: prep.key.id })
-    
+    */
     /*conn.sendHydrated(m.chat, text.trim(), author, pp, 'https://github.com/BochilGaming/games-wabot', 'Github', null, null, [
       ['Donate', '/donasi'],
       ['Speed', '/ping'],

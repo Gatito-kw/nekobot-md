@@ -1,3 +1,4 @@
+/*
 import needle from 'needle'
 import cheerio from 'cheerio'
 
@@ -34,9 +35,10 @@ async function facebookDl(link) {
     try {
       return response.body
     } catch (error) {
-      return { error: true, phase: 2, reason: error}
+      return { error: true, phase: 2, reason: error }
     }
   } catch (error) {
     return { error: true, phase: 0, reason: error }
   }
 }
+*/

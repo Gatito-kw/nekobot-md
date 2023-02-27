@@ -1,6 +1,6 @@
 import db from '../lib/database.js'
 
-let handler = async (m, { conn, usedPrefix, command }) => {
+let handler = async (m, { conn, args, usedPrefix, command }) => {
    let chat = db.data.chats[m.chat] || {}
    let rows = [
       ['Activar', `${usedPrefix + command} on`],

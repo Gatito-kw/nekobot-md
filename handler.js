@@ -620,10 +620,10 @@ export async function participantsUpdate({ id, participants, action }) {
                   .replace('@user', '@' + user.split('@')[0])
                   .replace('@group', groupMetadata.subject)
                   .replace('@desc', groupMetadata.desc?.toString() || 'Sin Descripción')
-                  .replace('@users', groupMetadata.participants.length)
-                  .replace('@adms', groupMetadata.participants.filter(v => v.admin == 'admin').length)
-                  .replace('@footer', global.textbot.footer)
-               await this.sendUrl(id, _text, global.fakebot.gif(null, await this.resize(global.imgbot.neko2, 300, 300)), {
+                  // .replace('@users', groupMetadata.participants.length)
+                  // .replace('@adms', groupMetadata.participants.filter(v => v.admin == 'admin').length)
+                  // .replace('@footer', global.textbot.footer)
+               await this.sendUrl(id, _text, global.fakebot.gif('Welcome to Group. 🍟', await this.resize(global.imgbot.neko2, 300, 300)), {
                   mentionedJid: [user],
                   externalAdReply: {
                      mediaType: 1,
@@ -631,7 +631,7 @@ export async function participantsUpdate({ id, participants, action }) {
                      sourceUrl: null,
                      thumbnail: img,
                      thumbnailUrl: img,
-                     title: 'Welcome to Group. 🍟',
+                     title: global.textbot.footer,
                   }
                })
             }

@@ -40,6 +40,11 @@ global.textbot = {
    footer: 'Simple - WhatsApp Bot - MD',
 }
 
+global.fakebot = {
+   gif(text = null, img = null) {
+      return { key: { participant: '0@s.whatsapp.net', remoteJid: '6287834993722-1621306547@g.us', fromMe: false, id: 'BAE5D0B72A69AF85' }, message: { videoMessage: { title: null, h: 'Hmm', seconds: 999999999, gifPlayback: true, caption: text, jpegThumbnail: img }}}
+   }
+}
 
 // Sticker WM
 global.packname = 'wa.me/6285713964963'

@@ -618,7 +618,7 @@ export async function participantsUpdate({ id, participants, action }) {
                let img = await (await this.getFile(pp)).toBuffer()
                _text = (action === 'add' ? (chat.sWelcome || global.msgconfig.welcome || 'Bienvenid@, @user!') : (chat.sBye || global.msgconfig.bye || 'Adiós, @user!'))
                   .replace('@user', '@' + user.split('@')[0])
-                  .replace('@subject', await this.getName(id))
+                  .replace('@group', groupMetadata.subject)
                   .replace('@desc', groupMetadata.desc?.toString() || 'Sin Descripción')
                   .replace('@users', groupMetadata.participants.length)
                   .replace('@adms', groupMetadata.participants.filter(v => v.admin == 'admin').length)
@@ -631,7 +631,7 @@ export async function participantsUpdate({ id, participants, action }) {
                      sourceUrl: null,
                      thumbnail: img,
                      thumbnailUrl: img,
-                     title: 'ଽ `⸼ ⤹ 🐬  作成者 子猫  ‧  ねこ 🐬 ⌢ : ♡',
+                     title: 'Welcome to Group. 🍟',
                   }
                })
             }

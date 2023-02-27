@@ -521,8 +521,9 @@ export async function handler(chatUpdate) {
                             for (let [jid] of global.owner.filter(([number, _, isDeveloper]) => isDeveloper && number)) {
                                 let data = (await this.onWhatsApp(jid))[0] || {}
                                 if (data.exists)
-                                    m.reply(`*REPORTE  DE  ERROR*\n\n	◦  *Usuario* : @${m.sender.split`@`[0]}\n	◦  *Cmd* : ${usedPrefix + command}\n	◦  *Plugin* : ${m.plugin}`, data.jid, { mentions: [m.sender] }).then(_=> m.reply('*' + e.name + '* : ' + e.message))
+                                    m.reply(`*REPORTE  DE  ERROR*\n\n	◦  *Usuario* : @${m.sender.split`@`[0]}\n	◦  *Cmd* : ${usedPrefix + command}\n	◦  *Plugin* : ${m.plugin}`, data.jid, { mentions: [m.sender] })
                             }
+                            m.reply('*' + e.name + '* : ' + e.message)
                     }
                 } finally {
                     // m.reply(util.format(_user))
@@ -620,9 +621,6 @@ export async function participantsUpdate({ id, participants, action }) {
                   .replace('@user', '@' + user.split('@')[0])
                   .replace('@group', groupMetadata.subject)
                   .replace('@desc', groupMetadata.desc?.toString() || 'Sin Descripción')
-                  // .replace('@users', groupMetadata.participants.length)
-                  // .replace('@adms', groupMetadata.participants.filter(v => v.admin == 'admin').length)
-                  // .replace('@footer', global.textbot.footer)
                await this.sendUrl(id, _text, global.fakebot.gif('Welcome to Group. 🍟', await this.resize(global.imgbot.neko2, 300, 300)), {
                   mentionedJid: [user],
                   externalAdReply: {

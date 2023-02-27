@@ -612,18 +612,23 @@ export async function participantsUpdate({ id, participants, action }) {
       case 'add':
       case 'remove':
          if (chat.welcome) {
-            let groupMetadata = await Connection.store.fetchGroupMetadata(id, this.groupMetadata)
+            let groupMetadata = await this.groupMetadata(id)
             for (let user of participants) {
                let pp = await this.profilePictureUrl(user, 'image').catch(_ => imgbot.noprofile)
                let img = await (await this.getFile(pp)).toBuffer()
-               _text = (action === 'add' ? (chat.sWelcome || global.msgconfig.welcome || 'Bienvenid@, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknow') :
-                  (chat.sBye || global.msgconfig.bye || 'Adiós, @user!')).replace('@user', '@' + user.split('@')[0])
-               await this.sendUrl(id, _text, null, {
+               _text = (action === 'add' ? (chat.sWelcome || global.msgconfig.welcome || 'Bienvenid@, @user!') : (chat.sBye || global.msgconfig.bye || 'Adiós, @user!'))
+                  .replace('@user', '@' + user.split('@')[0])
+                  .replace('@subject', await this.getName(id))
+                  .replace('@desc', groupMetadata.desc?.toString() || 'Sin Descripción')
+                  .replace('@users', groupMetadata.participants.length)
+                  .replace('@adms', groupMetadata.participants.filter(v => v.admin == 'admin').length)
+                  .replace('@footer', global.textbot.footer)
+               await this.sendUrl(id, _text, global.fakebot.gif(null, await this.resize(global.imgbot.neko2, 300, 300)), {
                   mentionedJid: [user],
                   externalAdReply: {
                      mediaType: 1,
                      renderLargerThumbnail: true,
-                     sourceUrl: '-',
+                     sourceUrl: null,
                      thumbnail: img,
                      thumbnailUrl: img,
                      title: 'ଽ `⸼ ⤹ 🐬  作成者 子猫  ‧  ねこ 🐬 ⌢ : ♡',

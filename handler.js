@@ -599,7 +599,7 @@ export async function handler(chatUpdate) {
  * @this {import('./lib/connection').Socket}
  * @param {import('@adiwajshing/baileys').BaileysEventMap<unknown>['group-participants.update']} groupsUpdate 
  */
-/*
+
 export async function participantsUpdate({ id, participants, action }) {
    console.log(action)
    if (this.isInit)
@@ -607,52 +607,43 @@ export async function participantsUpdate({ id, participants, action }) {
    if (db.data == null)
       await loadDatabase()
    let chat = db.data.chats[id] || {}
-   let text = ''
+   let _text = ''
    switch (action) {
-      case 'add': {
-        
-        
-        
-         await conn.sendUrl(m.chat, _text, null, {
-            mentionedJid: [m.sender],
-            externalAdReply: {
-               mediaType: 1,
-               renderLargerThumbnail: false,
-               sourceUrl: '',
-               thumbnail: global.imgbot.neko3,
-               thumbnailUrl: global.imgbot.neko3,
-               title: 'ଽ `⸼ ⤹ 🐬  作成者 子猫  ‧  ねこ 🐬 ⌢ : ♡',
+      case 'add':
+      case 'remove':
+         if (chat.welcome) {
+            let groupMetadata = await Connection.store.fetchGroupMetadata(id, this.groupMetadata)
+            for (let user of participants) {
+               let pp = await this.profilePictureUrl(user, 'image').catch(_ => imgbot.noprofile)
+               let img = await (await this.getFile(pp)).toBuffer()
+               _text = (action === 'add' ? (chat.sWelcome || global.msgconfig.welcome || 'Bienvenid@, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknow') :
+                  (chat.sBye || global.msgconfig.bye || 'Adiós, @user!')).replace('@user', '@' + user.split('@')[0])
+               await this.sendUrl(id, _text, null, {
+                  mentionedJid: [user],
+                  externalAdReply: {
+                     mediaType: 1,
+                     renderLargerThumbnail: true,
+                     sourceUrl: '-',
+                     thumbnail: img,
+                     thumbnailUrl: img,
+                     title: 'ଽ `⸼ ⤹ 🐬  作成者 子猫  ‧  ねこ 🐬 ⌢ : ♡',
+                  }
+               })
             }
-         }, { quoted: m })
-      }
-        case 'remove':
-            if (chat.welcome) {
-                let groupMetadata = await Connection.store.fetchGroupMetadata(id, this.groupMetadata)
-                for (let user of participants) {
-                    let pp = './src/avatar_contact.png'
-                    try {
-                        pp = await this.profilePictureUrl(user, 'image')
-                    } catch (e) {
-                    } finally {
-                        text = (action === 'add' ? (chat.sWelcome || global.msgconfig.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknow') :
-                            (chat.sBye || global.msgconfig.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
-                        this.sendFile(id, pp, 'pp.jpg', text, null, false, { mentions: [user] })
-                    }
-                }
-            }
-            break
-        case 'promote':
+         }
+         break
+         case 'promote':
             text = (chat.sPromote || global.msgconfig.spromote || '@user ```is now Admin```')
-        case 'demote':
+         case 'demote':
             if (!text)
-                text = (chat.sDemote || global.msgconfig.sdemote || '@user ```is no longer Admin```')
+               text = (chat.sDemote || global.msgconfig.sdemote || '@user ```is no longer Admin```')
             text = text.replace('@user', '@' + participants[0].split('@')[0])
             if (chat.detect)
-                this.sendMessage(id, { text, mentions: this.parseMention(text) })
+               this.sendMessage(id, { text, mentions: this.parseMention(text) })
             break
     }
 }
-*/
+
 /**
  * Handle groups update
  * @this {import('./lib/connection').Socket}

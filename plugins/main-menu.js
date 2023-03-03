@@ -57,7 +57,7 @@ let handler = async (m, { conn, text, usedPrefix, __dirname }) => {
    let help = Object.values(plugins).filter(plugin => !plugin.disabled).map(plugin => {
       return {
          help: Array.isArray(plugin.tags) ? plugin.help : [plugin.help],
-         use: plugin.use,
+         use: Array.isArray(plugin.use) ? plugin.use : [plugin.use],
          tags: Array.isArray(plugin.tags) ? plugin.tags : [plugin.tags],
          prefix: 'customPrefix' in plugin,
          limit: plugin.limit,
@@ -72,12 +72,14 @@ let handler = async (m, { conn, text, usedPrefix, __dirname }) => {
          if (menu.tags && menu.tags.includes(tag))
          if (menu.help) groups[tag].push(menu)
    }
-   let _text = `\t\t─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─\n\nHola @${m.sender.split`@`[0]} ${greeting()}, aquí te muestro mi lista de Comandos.\n\n`
+   let _text = `\t\t─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─\n\nHola @user @greeting, aquí te muestro mi lista de Comandos.\n\n`
+      .replace('@user', '@' + m.sender.split`@`[0])
+      .replace('@greeting', greeting)
    for (let tag in groups) {
       _text += `ㅤ𓐄ㅤ·  ࣪왕  ،    *${tag.replace(tag, tags[tag])}*\n`
       for (let menu of groups[tag]) {
          for (let help of menu.help) {
-               _text += `              ◦  ${menu.prefix ? help : usedPrefix + help}\n`
+               _text += `              ◦  ${menu.prefix ? help : usedPrefix + help}${menu.use ? `  ${menu.use}` : ''}\n`
          }
       }
       _text += '\n'

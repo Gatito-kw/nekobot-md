@@ -1,7 +1,7 @@
 {
    "name": "nekobot-md",
    "version": "2.2.0",
-   "description": "Simple WhatsApp Bot - Muti Device",
+   "description": "Simple - WhatsApp Bot - MD",
    "main": "index.js",
    "type": "module",
    "directories": {
@@ -26,16 +26,16 @@
       "MD",
       "baileys-md"
    ],
-   "homepage": "https://github.com/g4tito-kw/nekobot-md",
+   "homepage": "https://github.com/Gatito-kw/nekobot-md",
    "author": {
-      "name": "g4tito-kw"
+      "name": "Gatito-kw"
    },
    "repository": {
       "type": "git",
-      "url": "git+https://github.com/g4tito-kw/nekobot-md.git"
+      "url": "git+https://github.com/Gatito-kw/nekobot-md.git"
    },
    "bugs": {
-      "url": "https://github.com/g4tito-kw/nekobot-md/issues"
+      "url": "https://github.com/Gatito-kw/nekobot-md/issues"
    },
    "license": "GPL-3.0-or-later",
    "dependencies": {

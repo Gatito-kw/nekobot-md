@@ -37,6 +37,7 @@ global.imgbot = {
 }
 
 global.textbot = {
+   title: 'ㅤ·ㅤ© NekoBot-MD / Neko Team  (ねこ)ㅤ·ㅤ',
    footer: 'Simple - WhatsApp Bot - MD',
 }
 
@@ -47,8 +48,13 @@ global.fakebot = {
 }
 
 // Sticker WM
-global.packname = 'wa.me/6285713964963'
-global.author = 'Metro Bot'
+global.packname = '~>'
+global.author = 'Neko Bot'
+
+global.wmbot = {
+   name: 'Sticker',
+   author: 'NK - ネコ',
+}
 
 global.multiplier = 69
 

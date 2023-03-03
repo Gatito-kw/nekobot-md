@@ -10,7 +10,7 @@ let handler = async (m, { conn, text }) => {
    } catch (e) {
       log = e
    } finally {
-      await m.reply((log.stderr.trim() || '' + '\n\n\n' + log.stdout.trim() || '').trim())
+      await m.reply((!log.stderr ? log.stderr.trim() : '' + '\n\n\n' + !log.stdout ? log.stdout.trim() : '').trim())
    }
 }
 

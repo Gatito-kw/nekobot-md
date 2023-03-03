@@ -11,10 +11,11 @@ let handler = async (m, { conn, text }) => {
       u = e
    } finally {
       let { stdout, stderr } = u
-      let out, err
-      if (stdout.trim()) out = stdout.trim() || ''
-      if (stderr.trim()) err = stderr.trim() || ''
-      await m.reply((err + '\n\n' + out).trim())
+      let log
+      if (stderr.trim()) log += stderr.trim() + '\n\n\n'
+      if (stdout.trim()) log += stdout.trim()
+      await m.reply(log.trim())
+      await m.reply(`${JSON.stringify(u, null, 1)}`)
    }
 }
 

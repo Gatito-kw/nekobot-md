@@ -22,7 +22,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 handler.help = ['welcome']
 handler.tags = ['group']
 handler.command = ['welcome', 'bienvenida']
-handler.use = ['on / off']
+handler.use = ['on/off']
 
 handler.admin = true
 

@@ -2,7 +2,7 @@ import cp from 'child_process'
 import { promisify } from 'util'
 
 let handler = async (m, { conn, text }) => {
-   await m.reply('Updating...')
+   await m.reply('Updating Script...')
    let exec = promisify(cp.exec).bind(cp)
    let u
    try {
@@ -11,8 +11,10 @@ let handler = async (m, { conn, text }) => {
       u = e
    } finally {
       let { stdout, stderr } = u
-      if (stdout.trim()) m.reply(stdout)
-      if (stderr.trim()) m.reply(stderr)
+      let stdout, stderr
+      if (stdout.trim()) stdout = stdout.trim()
+      if (stderr.trim()) stderr = stderr.trim()
+      await m.reply(stderr + '\n\n' + stderr)
    }
 }
 

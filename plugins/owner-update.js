@@ -11,10 +11,10 @@ let handler = async (m, { conn, text }) => {
       u = e
    } finally {
       let { stdout, stderr } = u
-      let stdout, stderr
-      if (stdout.trim()) stdout = stdout.trim()
-      if (stderr.trim()) stderr = stderr.trim()
-      await m.reply(stderr + '\n\n' + stderr)
+      let out, err
+      if (stdout.trim()) out = stdout.trim()
+      if (stderr.trim()) err = stderr.trim()
+      await m.reply((err + '\n\n' + out).trim())
    }
 }
 

@@ -1,8 +1,19 @@
-import { execSync } from 'child_process'
+import cp from 'child_process'
+import { promisify } from 'util'
 
 let handler = async (m, { conn, text }) => {
-   let stdout = execSync('git pull')
-   await m.reply(stdout.toString())
+   await m.reply('Updating...')
+   let exec = promisify(cp.exec).bind(cp)
+   let u
+   try {
+      u = await exec('git pull')
+   } catch (e) {
+      u = e
+   } finally {
+      let { stdout, stderr } = u
+      if (stdout.trim()) m.reply(stdout)
+      if (stderr.trim()) m.reply(stderr)
+   }
 }
 
 handler.help = ['update']

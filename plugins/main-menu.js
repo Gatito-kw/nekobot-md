@@ -82,7 +82,7 @@ let handler = async (m, { conn, text, usedPrefix, __dirname }) => {
       }
       _text += '\n'
    }
-   _text += `${textbot.footer}`
+   _text += `${global.textbot.footer}`
    await conn.sendUrl(m.chat, _text, m, {
       mentionedJid: [m.sender],
       externalAdReply: {
@@ -91,7 +91,7 @@ let handler = async (m, { conn, text, usedPrefix, __dirname }) => {
          sourceUrl: 'https://chat.whatsapp.com/NEKO',
          thumbnail: global.imgbot.neko3,
          thumbnailUrl: global.imgbot.neko3,
-         title: '·ㅤ© NekoBot-MD / Neko Team  (ねこ)ㅤ·',
+         title: global.textbot.title,
       }
    })
 }

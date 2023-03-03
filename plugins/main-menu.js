@@ -1,4 +1,3 @@
-const { generateWAMessageFromContent } = (await import('@adiwajshing/baileys')).default
 import { promises } from 'fs'
 import { join } from 'path'
 import { plugins } from '../lib/plugins.js'
@@ -73,67 +72,28 @@ let handler = async (m, { conn, text, usedPrefix, __dirname }) => {
          if (menu.tags && menu.tags.includes(tag))
          if (menu.help) groups[tag].push(menu)
    }
-   let _text = `Hola @${m.sender.split`@`[0]} ${greeting()}, aquí te muestro mi lista de comandos.\n\n`
+   let _text = `─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─\n\nHola @${m.sender.split`@`[0]} ${greeting()}, aquí te muestro mi lista de Comandos.\n\n`
    for (let tag in groups) {
-      _text += `   *${tag.replace(tag, tags[tag])}*\n\n`
+      _text += `ㅤ 𓐄ㅤ·  ࣪왕  ،    *${tag.replace(tag, tags[tag])}*\n\n`
       for (let menu of groups[tag]) {
          for (let help of menu.help) {
-               _text += `     ◦  ${menu.prefix ? help : usedPrefix + help}\n`
+               _text += `               ◦  ${menu.prefix ? help : usedPrefix + help}\n`
          }
       }
       _text += '\n'
    }
    _text += `${textbot.footer}`
-   
-   if (text == '--simple') {
-      let prep = generateWAMessageFromContent(m.chat, { extendedTextMessage: {
-         text: _text,
-         contextInfo: {
-            mentionedJid: [m.sender],
-            externalAdReply: {
-               mediaType: 1,
-               renderLargerThumbnail: true,
-               sourceUrl: 'https://chat.whatsapp.com/NEKO',
-               thumbnail: global.imgbot.neko3,
-               thumbnailUrl: global.imgbot.neko3,
-               title: 'ଽ `⸼ ⤹ 🐬  作成者 子猫  ‧  ねこ 🐬 ⌢ : ♡',
-            }
-         }
-      }}, { quoted: m })
-      return await conn.relayMessage(m.chat, prep.message, { messageId: prep.key.id })
-   }
-   
-   let buttons = [
-      { buttonId: `${usedPrefix}infobot`, buttonText: { displayText: 'INFO' }, type: 1 },
-      { buttonId: `${usedPrefix}creador`, buttonText: { displayText: 'CREADOR' }, type: 1 }
-   ]
-   let buttonMessage = {
-      document: await conn.resize(global.imgbot.neko1, 450, 319), 
-      fileName: '⌗ 【 Nᴇᴋᴏʙᴏᴛ - Oғɪᴄɪᴀʟ 】 ⋮ 🐈₊', 
-      mimetype: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 
-      jpegThumbnail: await conn.resize(global.imgbot.neko1, 450, 319), 
-      caption: _text, 
-      fileLength: '9999999999999', 
-      pageCount: '100', 
-      mentions: [m.sender], 
-      footer: global.textbot.footer,
-      buttons: buttons, 
-      headerType: 4, 
-      contextInfo: {
-         mentionedJid: [m.sender],
-         externalAdReply: {
-            "showAdAttribution": true,
-            "mediaUrl": 'https://chat.whatsapp.com/NEKO',
-            "title": '作成されたボット — 尼僧', 
-            "mediaType": 1, 
-            "thumbnail": imgbot.neko2,
-            "renderLargerThumbnail": false,
-            "previewType": "PHOTO",
-            "sourceUrl": 'https://chat.whatsapp.com/NEKO'
-         }
+   await conn.sendUrl(m.chat, _text, null, {
+      mentionedJid: [m.sender],
+      externalAdReply: {
+         mediaType: 1,
+         renderLargerThumbnail: false,
+         sourceUrl: '',
+         thumbnail: global.imgbot.neko3,
+         thumbnailUrl: global.imgbot.neko3,
+         title: 'ଽ `⸼ ⤹ 🐬  作成者 子猫  ‧  ねこ 🐬 ⌢ : ♡',
       }
-   }
-   await conn.sendMessage(m.chat, buttonMessage, { quoted: m })
+   }, { quoted: m })
 }
 
 handler.help = ['menu']

@@ -7,11 +7,11 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
       ['Desactivar', `${usedPrefix + command} off`]
    ]
    if (args[0] === 'on') {
-      if (chat.welcome) return m.reply('La bienvenida ya esta Activado.')
+      if (chat.welcome) return m.reply('La bienvenida ya esta Activada.')
       chat.welcome = true
       await m.reply('🚩 Bienvenida activada para este Grupo.')
    } else if (args[0] === 'off') {
-      if (!chat.welcome) return m.reply('La bienvenida ya esta Desactivado.')
+      if (!chat.welcome) return m.reply('La bienvenida ya esta Desactivada.')
       chat.welcome = false
       await m.reply('🚩 Bienvenida desactivada para este Grupo.')
    } else {

@@ -4,13 +4,13 @@ import { promisify } from 'util'
 let handler = async (m, { conn, text }) => {
    await m.reply('Updating Script...')
    let exec = promisify(cp.exec).bind(cp)
-   let u
+   let log
    try {
-      u = await exec('git pull')
+      log = await exec('git pull')
    } catch (e) {
-      u = e
+      log = e
    } finally {
-      await m.reply(JSON.stringify(u, null, 1))
+      await m.reply((log.stderr.trim() || '' + '\n\n\n' + log.stdout.trim() || '').trim())
    }
 }
 

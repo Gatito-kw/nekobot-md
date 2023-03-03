@@ -74,10 +74,10 @@ let handler = async (m, { conn, text, usedPrefix, __dirname }) => {
    }
    let _text = `\t\t─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─\n\nHola @${m.sender.split`@`[0]} ${greeting()}, aquí te muestro mi lista de Comandos.\n\n`
    for (let tag in groups) {
-      _text += `ㅤ 𓐄ㅤ·  ࣪왕  ،    *${tag.replace(tag, tags[tag])}*\n`
+      _text += `ㅤ𓐄ㅤ·  ࣪왕  ،    *${tag.replace(tag, tags[tag])}*\n`
       for (let menu of groups[tag]) {
          for (let help of menu.help) {
-               _text += `               ◦  ${menu.prefix ? help : usedPrefix + help}\n`
+               _text += `              ◦  ${menu.prefix ? help : usedPrefix + help}\n`
          }
       }
       _text += '\n'

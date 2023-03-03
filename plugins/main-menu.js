@@ -83,7 +83,7 @@ let handler = async (m, { conn, text, usedPrefix, __dirname }) => {
       _text += '\n'
    }
    _text += `${textbot.footer}`
-   await conn.sendUrl(m.chat, _text, null, {
+   await conn.sendUrl(m.chat, _text, m, {
       mentionedJid: [m.sender],
       externalAdReply: {
          mediaType: 1,
@@ -91,9 +91,9 @@ let handler = async (m, { conn, text, usedPrefix, __dirname }) => {
          sourceUrl: 'https://chat.whatsapp.com/NEKO',
          thumbnail: global.imgbot.neko3,
          thumbnailUrl: global.imgbot.neko3,
-         title: 'ଽ `⸼ ⤹ 🐬  作成者 子猫  ‧  ねこ 🐬 ⌢ : ♡',
+         title: '·ㅤ© NekoBot-MD / Neko Team  (ねこ)ㅤ·',
       }
-   }, { quoted: m })
+   })
 }
 
 handler.help = ['menu']

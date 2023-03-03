@@ -87,8 +87,8 @@ let handler = async (m, { conn, text, usedPrefix, __dirname }) => {
       mentionedJid: [m.sender],
       externalAdReply: {
          mediaType: 1,
-         renderLargerThumbnail: false,
-         sourceUrl: '',
+         renderLargerThumbnail: true,
+         sourceUrl: 'https://chat.whatsapp.com/NEKO',
          thumbnail: global.imgbot.neko3,
          thumbnailUrl: global.imgbot.neko3,
          title: 'ଽ `⸼ ⤹ 🐬  作成者 子猫  ‧  ねこ 🐬 ⌢ : ♡',

@@ -1,6 +1,6 @@
 import { execSync } from 'child_process'
 
-let handler = async (m, { conn, text }) => {
+let handler = async (m) => {
    await m.reply('Restarting Script...')
    process.send('reset')
 }

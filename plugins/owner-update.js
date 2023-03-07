@@ -1,7 +1,7 @@
 import cp from 'child_process'
 import { promisify } from 'util'
 
-let handler = async (m, { conn, text }) => {
+let handler = async (m) => {
    await m.reply('Updating Script...')
    let exec = promisify(cp.exec).bind(cp)
    let log

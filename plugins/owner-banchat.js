@@ -1,6 +1,6 @@
 import db from '../lib/database.js'
 
-let handler = async (m, { participants }) => {
+let handler = async (m) => {
    let chat = db.data.chats[m.chat]
    if (chat.isBanned) return m.chat('El chat ya esta Baneado.')
    chat.isBanned = true

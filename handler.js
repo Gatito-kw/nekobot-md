@@ -285,19 +285,16 @@ export async function handler(chatUpdate) {
                     antiToxic: true,
                     expired: 0,
                 }
-            let settings = db.data.settings[this.user.jid]
-            if (typeof settings !== 'object') db.data.settings[this.user.jid] = {}
-            if (settings) {
-                if (!('self' in settings))
-                   settings.self = false
-                if (!'autoRead' in settings)
-                   settings.autoRead = false
-                if (!('restrict' in settings))
-                   settings.restrict = false
+            let setting = db.data.settings[this.user.jid]
+            if (typeof setting !== 'object') db.data.settings[this.user.jid] = {}
+            if (setting) {
+               if (!'isBanned' in setting)
+                  setting.isBanned = true
+               if (!'autoRead' in setting)
+                  setting.autoRead = false
             } else db.data.settings[this.user.jid] = {
-                self: false,
-                autoRead: false,
-                restrict: false
+               isPublic: true,
+               autoRead: false,
             }
         } catch (e) {
             console.error(e)
@@ -431,11 +428,12 @@ export async function handler(chatUpdate) {
                     continue
                 m.plugin = name
                 if (m.chat in db.data.chats || m.sender in db.data.users) {
+                    let setting = db.data.settings[this.user.jid]
                     let chat = db.data.chats[m.chat]
                     let user = db.data.users[m.sender]
-                    if (name != 'owner-unbanchat.js' && chat?.isBanned)
-                        return // Except this
-                    if (name != 'owner-unbanuser.js' && user?.banned)
+                    if (!isMods && setting?.isBanned)
+                        return
+                    if (!isMods && chat?.isBanned)
                         return
                 }
                 if (plugin.rowner && plugin.owner && !(isROwner || isOwner)) { // Both Owner
@@ -706,22 +704,21 @@ Untuk mematikan fitur ini, ketik
 
 global.dfail = (type, m, conn) => {
    let msg = {
-      rowner: '*🚩 Este comando solo puede ser utilizado por el Creador de la Bot.*',
-      owner: '*🚩 Este comando solo puede ser utilizado por el Creador de la Bot.*',
-      mods: '*🚩 Este comando solo puede ser utilizado por los Moderatores de la Bot.*',
-      premium: '*🚩 Este comando solo puede ser utilizado por Usuarios Premium.*',
-      group: '*🚩 Este comando solo puede ser utilizado en Grupos.*',
-      private: '*🚩 Este comando solo puede ser utilizado en mi Chat Privado.*',
-      admin: '*🚩 Este comando solo puede ser utilizado por los Administradores del Grupo.*',
-      botAdmin: '*🚩 La bot deve ser Administradora para ejecutar este Comando.*',
-      restrict: '*🚩 Esta función esta Deshabilitada.*'
+      rowner: 'ⓘ Este comando solo puede ser utilizado por el *Creador* de la Bot.',
+      owner: 'ⓘ Este comando solo puede ser utilizado por el *Creador* de la Bot.',
+      mods: 'ⓘ Este comando solo puede ser utilizado por los *Moderatores* de la Bot.',
+      premium: 'ⓘ Este comando solo puede ser utilizado por Usuarios *Premium*.',
+      group: 'ⓘ Este comando solo puede ser utilizado en *Grupos*.',
+      private: 'ⓘ Este comando solo puede ser utilizado en mi Chat *Privado*.',
+      admin: 'ⓘ Este comando solo puede ser utilizado por los *Administradores* del Grupo.',
+      botAdmin: 'ⓘ La bot deve ser *Administradora* para ejecutar este Comando.',
    }[type]
    if (msg) return m.reply(msg)
 }
 
 let file = Helper.__filename(import.meta.url, true)
 watchFile(file, async () => {
-    unwatchFile(file)
-    Connection.conn.logger.info("Update 'handler.js'")
-    if (Connection.reload) await Connection.reload(await Connection.conn)
+   unwatchFile(file)
+   Connection.conn.logger.info("Update 'handler.js'")
+   if (Connection.reload) await Connection.reload(await Connection.conn)
 })

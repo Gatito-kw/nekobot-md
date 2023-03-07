@@ -293,7 +293,7 @@ export async function handler(chatUpdate) {
                if (!'autoRead' in setting)
                   setting.autoRead = false
             } else db.data.settings[this.user.jid] = {
-               isPublic: true,
+               isBanned: false,
                autoRead: false,
             }
         } catch (e) {

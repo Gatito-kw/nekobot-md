@@ -8,12 +8,12 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
 	let { title, description, thumbnail, videoId, timestamp, views, ago, url, author } = vid
 	let link = 'https://youtu.be/' + videoId
 	let txt = `乂  *Y O U T U B E  -  P L A Y*\n\n`
-	   txt += `Búsqueda : ${text}\n\n`
        txt += `	◦  *Titulo* : ${title || '×'}\n`
        txt += `	◦  *Duración* : ${timestamp || '×'}\n`
        txt += `	◦  *Visitas* : ${sNum(views) || views || '×'}\n`
        txt += `	◦  *Publicado* : ${eYear(ago) || ago || '×'}\n`
        txt += `	◦  *Autor* : ${author.name || '×'}\n`
+       txt += `	◦  *Id* : ${videoId}\n`
        txt += `	◦  *Url* : ${link}\n`
     await conn.sendButton(m.chat, txt, 'Elija un formato de descarga mp3 o mp4', `${thumbnail}`, [['Audio 🎧', `${usedPrefix}ytmp3 ${link} --yes`], ['Video 🎥', `${usedPrefix}ytmp4 ${link} --yes`]], m)
     await m.react('✅')

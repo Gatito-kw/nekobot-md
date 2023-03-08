@@ -44,4 +44,6 @@ handler.help = ['ytmp3']
 handler.tags = ['download']
 handler.command = ['ytmp3', 'yta']
 
+handler.read_error = true
+
 export default handler

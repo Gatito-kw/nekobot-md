@@ -1,27 +1,25 @@
 import yts from 'yt-search'
 
-let handler = async (m, { conn, command, text, usedPrefix }) => {
-	if (!text) return m.reply('Ingrese el título de un video o música de YouTube')
-	await m.react('🕓')
-	let vid = (await yts(text)).videos[0]
-	if (!vid) return m.reply('No se encontraron resultados, intente con un nombre más corto').then(async _ => await m.react('✖️'))
-	let { title, description, thumbnail, videoId, timestamp, views, ago, url, author } = vid
-	let link = 'https://youtu.be/' + videoId
-	let txt = `乂  *Y O U T U B E  -  P L A Y*\n\n`
-       txt += `	◦  *Titulo* : ${title || '×'}\n`
-       txt += `	◦  *Duración* : ${timestamp || '×'}\n`
-       txt += `	◦  *Visitas* : ${sNum(views) || views || '×'}\n`
-       txt += `	◦  *Publicado* : ${eYear(ago) || ago || '×'}\n`
-       txt += `	◦  *Autor* : ${author.name || '×'}\n`
-       txt += `	◦  *Id* : ${videoId}\n`
-       txt += `	◦  *Url* : ${link}\n`
-    await conn.sendButton(m.chat, txt, 'Elija un formato de descarga mp3 o mp4', `${thumbnail}`, [['Audio 🎧', `${usedPrefix}ytmp3 ${link} --yes`], ['Video 🎥', `${usedPrefix}ytmp4 ${link} --yes`]], m)
+let handler = async (m, {conn, usedPrefix, text }) => {
+   if (!text) return m.reply('*Ingrese el título de un video de YouTube*')
+   await m.react('🕓')
+   let results = await yts(text)
+   let res = results.all.map(v => v).filter(v => v.type == "video")
+   if (!res.length) return m.reply('*No se encontraron resultados, intente con un nombre más corto*').then(_ => m.react('✖️'))
+   let txt = `乂  *Y O U T U B E  -  S E A R C H*\n\n`
+   for (let i = 0; i < 15; i++) {
+      txt += `	◦  *Nro* : ${1+i}\n`
+	  txt += `	◦  *Titulo* : ${res[i].title}\n`
+	  txt += `	◦  *Autor* : ${res[i].author.name || '×'}\n`
+	  txt += `	◦  *Url* : ${'https://youtu.be/' + res[i].videoId}\n`
+	}
+    await conn.sendFile(m.chat, res[0].image, 'YouTube - Search.jpg', txt, m)
     await m.react('✅')
 }
 
-handler.help = ['play']
+handler.help = ['ytsearch']
 handler.tags = ['search']
-handler.command = ['play', 'ytplay']
+handler.command = ['ytsearch', 'yts']
 
 handler.read_error = true
 
@@ -70,6 +68,16 @@ function eYear(txt) {
     if (txt.includes('minutes ago')) {
         var T = txt.replace("minutes ago", "").trim()
         var L = 'hace ' + T + ' minutos'
+        return L
+    }
+    if (txt.includes('day ago')) {
+        var T = txt.replace("day ago", "").trim()
+        var L = 'hace ' + T + ' dia'
+        return L
+    }
+    if (txt.includes('days ago')) {
+        var T = txt.replace("days ago", "").trim()
+        var L = 'hace ' + T + ' dias'
         return L
     }
 }

@@ -264,8 +264,8 @@ export async function handler(chatUpdate) {
                     chat.delete = true
                 if (!('antiLink' in chat))
                     chat.antiLink = false
-                if (!('viewonce' in chat))
-                    chat.viewonce = false
+                if (!('antiViewOnce' in chat))
+                    chat.antiViewOnce = false
                 if (!('antiToxic' in chat))
                     chat.antiToxic = false
                 if (!isNumber(chat.expired))
@@ -281,7 +281,7 @@ export async function handler(chatUpdate) {
                     sDemote: '',
                     delete: true,
                     antiLink: false,
-                    viewonce: false,
+                    antiViewOnce: false,
                     antiToxic: true,
                     expired: 0,
                 }

@@ -5,6 +5,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
    let res = await fetch(global.API('https://api.github.com', '/search/repositories', { q: text }))
    let json = await res.json()
    let result = json.items.map(v => v).filter(v => v)
+   return console.log(result)
    let txt = `乂  *G I T H U B  -  S E A R C H*`
    for (let i = 0; i < 10; i++) {
       txt += `\n\n`

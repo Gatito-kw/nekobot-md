@@ -27,7 +27,4 @@ async function openAi(text) {
    })
    if (status !== 200) throw new Error('Opps error!')
    return data
-  } catch (err) {
-   return err.message
-  }
 }

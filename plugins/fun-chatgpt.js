@@ -3,7 +3,8 @@ import fetch from 'node-fetch'
 let handler = async(m, { conn, text }) => {
     if (!text) return m.reply('Ingresa un texto para interactuar con la inteligencia artificial de Chatgpt.')
     let res = await openAi(text)
-    await m.reply(`${res?.choices[0]?.text.trim()}`)
+    await m.reply(JSON.stringify(res, null, 1))
+    // await m.reply(`${res?.choices[0]?.text.trim()}`).catch(e => m.reply(JSON.stringify(res, null, 1)))
 }
 
 handler.help = ['chatgpt']

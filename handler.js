@@ -521,7 +521,7 @@ export async function handler(chatUpdate) {
                                 if (data.exists)
                                     m.reply(`*REPORTE  DE  ERROR*\n\n	◦  *Usuario* : @${m.sender.split`@`[0]}\n	◦  *Cmd* : ${usedPrefix + command}\n	◦  *Plugin* : ${m.plugin}`, data.jid, { mentions: [m.sender] })
                             }
-                            m.reply('*' + e.name + '* : ' + e.message).then(_=> plugin.read_error ? m.react('❌') : null)
+                            m.reply('*' + e.name + '* : ' + e.message).then(_=> plugin.react_error ? m.react('❌') : null)
                     }
                 } finally {
                     // m.reply(util.format(_user))

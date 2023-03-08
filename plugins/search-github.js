@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 
-let handler = async (m, { text, usedPrefix, command }) => {
+let handler = async (m, { conn, text, usedPrefix, command }) => {
     if (!text) return m.reply(`*Ingrese el nombre de un repositorio de github*\n\n- Ejemplo: ${usedPrefix + command} lolibot`)
     let res = await fetch(global.API('https://api.github.com', '/search/repositories', {
         q: text

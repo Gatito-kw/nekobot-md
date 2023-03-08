@@ -23,7 +23,7 @@ handler.help = ['play']
 handler.tags = ['search']
 handler.command = ['play', 'ytplay']
 
-handler.read_error = true
+handler.react_error = true
 
 export default handler
 

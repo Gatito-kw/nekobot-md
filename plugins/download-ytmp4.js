@@ -44,7 +44,7 @@ handler.help = ['ytmp4']
 handler.tags = ['download']
 handler.command = ['ytmp4', 'ytv']
 
-handler.read_error = true
+handler.react_error = true
 
 
 export default handler

@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-   if (!text) return m.reply(`*Ingrese el nombre de un repositorio de github*\n\n- Ejemplo: ${usedPrefix + command} lolibot`)
+   if (!text) return m.reply('Ingresa el nombre de un repositorio de Github.')
    let res = await fetch(global.API('https://api.github.com', '/search/repositories', { q: text }))
    let json = await res.json()
    let result = json.items.map(v => v).filter(v => v)

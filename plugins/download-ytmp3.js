@@ -1,4 +1,3 @@
-const { generateWAMessageFromContent } = (await import('@adiwajshing/baileys')).default
 import fetch from 'node-fetch'
 import yts from 'yt-search'
 import ytdl from 'ytdl-core'
@@ -33,8 +32,15 @@ let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) =
          txt += `	◦  *Tamaño* : ${size}\n`
          txt += `	◦  *Url* : ${'https://youtu.be/' + _res[0].videoId}\n\n`
          txt += `El audio se esta enviando, Espere un momento.`
-	  let prep = generateWAMessageFromContent(m.chat, { extendedTextMessage: { text: txt, contextInfo: { externalAdReply: { mediaType: 1, renderLargerThumbnail: true, thumbnail: img, thumbnailUrl: img, title: global.textbot.title }}}}, { quoted: m })
-      await conn.relayMessage(m.chat, prep.message, { messageId: prep.key.id })
+	  await conn.sendUrl(m.chat, txt, m, {
+         externalAdReply: {
+            mediaType: 1,
+            renderLargerThumbnail: true,
+            thumbnail: img,
+            thumbnailUrl: img,
+            title: global.textbot.title,
+         }
+      })
    }
    await conn.sendMessage(m.chat, { audio: { url: res.url }, fileName: _res[0].title + '.mp3', mimetype: 'audio/mp4' }, { quoted: m })
    await m.react('✅')

@@ -12,12 +12,13 @@ let handler = async (m, {conn, usedPrefix, text }) => {
       txt += `\n\n`
       txt += `	◦  *Nro* : ${1+i}\n`
 	  txt += `	◦  *Titulo* : ${res[i].title}\n`
+	  txt += `	◦  *Duración* : ${res[i].timestamp || '×'}\n`
+	  txt += `	◦  *Publicado* : ${eYear(res[i].ago) || res[i].ago || '×'}\n`
 	  txt += `	◦  *Autor* : ${res[i].author.name || '×'}\n`
 	  txt += `	◦  *Url* : ${'https://youtu.be/' + res[i].videoId}\n`
    }
    let img = await (await fetch(res[0].image)).buffer()
    await conn.sendUrl(m.chat, txt, m, {
-      mentionedJid: [m.sender],
       externalAdReply: {
          mediaType: 1,
          renderLargerThumbnail: true,

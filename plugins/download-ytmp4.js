@@ -17,7 +17,7 @@ let limit = 100 // Limite de 100 MB
 let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) => {
    if (!text) return m.reply('Ingresa la url o título de un video de YouTube.')
    await m.react('🕓')
-   let search = await ytss(text.replace(' --yes', ''))
+   let search = await yts(text.replace(' --yes', ''))
    let _res = search.all.map(v => v).filter(v => v.type == "video")
    let info = await ytdl.getInfo('https://youtu.be/' + _res[0].videoId)
    let res = await ytdl.chooseFormat(info.formats, { quality: '18' })

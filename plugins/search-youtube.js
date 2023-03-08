@@ -6,8 +6,9 @@ let handler = async (m, {conn, usedPrefix, text }) => {
    let results = await yts(text)
    let res = results.all.map(v => v).filter(v => v.type == "video")
    if (!res.length) return m.reply('*No se encontraron resultados, intente con un nombre más corto*').then(_ => m.react('✖️'))
-   let txt = `乂  *Y O U T U B E  -  S E A R C H*\n\n`
+   let txt = `乂  *Y O U T U B E  -  S E A R C H*`
    for (let i = 0; i < 15; i++) {
+      txt += `\n\n`
       txt += `	◦  *Nro* : ${1+i}\n`
 	  txt += `	◦  *Titulo* : ${res[i].title}\n`
 	  txt += `	◦  *Autor* : ${res[i].author.name || '×'}\n`

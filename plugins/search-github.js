@@ -6,7 +6,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
    let json = await res.json()
    let result = json.items.map(v => v).filter(v => v)
    let txt = `乂  *G I T H U B  -  S E A R C H*`
-   for (let i = 0; i < result[i].length; i++) {
+   for (let i = 0; i < result.length; i++) {
       txt += `\n\n`
       txt += `	◦  *Nro* : ${1+i}`
 	  txt += `	◦  *Url* : ${result[i].html_url}\n`

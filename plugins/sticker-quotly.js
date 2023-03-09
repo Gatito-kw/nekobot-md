@@ -32,7 +32,7 @@ let handler = async (m, { conn, text }) => {
       }
    })
    const buffer = Buffer.from(json.data.result.image, 'base64')
-   let stick = await sticker(false, buffer, global.wmbot.name, global.wmbot.author)
+   let stick = await sticker(buffer, false, global.wmbot.name, global.wmbot.author)
    await conn.sendFile(m.chat, stick, 'Quotly.webp', '', m)
 }
 

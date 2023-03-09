@@ -11,13 +11,13 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	  txt += `	◦  *Tipo* : ${json[0].type}\n`
 	  txt += `	◦  *Episodios* : ${json[0].episodes}\n`
 	  txt += `	◦  *Estado* : ${json[0].status}\n`
+	  txt += `	◦  *Emitido* : ${data[0].aired.string}`
 	  txt += `	◦  *Clasificacion* : ${json[0].rating}\n`
 	  txt += `	◦  *Duracion* : ${json[0].duration}\n`
 	  txt += `	◦  *Puntaje* : ${json[0].score}\n`
 	  txt += `	◦  *Genero* : ${json[0].genres.map((val) => val.name).join(", ")}\n`
 	  txt += `	◦  *Sinopsis* : ${json[0].synopsis}\n\n`
-	  txt += global.textbot.footer
-   let img = await (await fetch(json[0].images.jpg.image_url)).buffer()
+   let img = await (await fetch(json[0].images.jpg.large_image_url)).buffer()
    await conn.sendUrl(m.chat, txt, m, {
       externalAdReply: {
          mediaType: 1,

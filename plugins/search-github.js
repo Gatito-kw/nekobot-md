@@ -18,7 +18,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	  txt += `	◦  *Creado* : ${moment(result[i].created_at).format('DD/MM/YY - HH:mm:ss')}\n`
 	  txt += `	◦  *Actualizado* : ${moment(result[i].updated_at).format('DD/MM/YY - HH:mm:ss')}\n`
 	  txt += `	◦  *Visitas* : ${result[i].watchers}\n`
-	  txt += `	🍴 ${repo.forks} Forks · ⭐ ${repo.stargazers_count} Stars · 💬 ${repo.open_issues} Issues`
+	  txt += `	🍴 ${result[i].forks} Forks · ⭐ ${result[i].stargazers_count} Stars · 💬 ${result[i].open_issues} Issues`
 	  
    }
    let img = await (await fetch(json.items[0].owner.avatar_url)).buffer()

@@ -4,7 +4,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
    if (!text) return m.reply('Ingrese el titulo de un Anime.')
    await m.react('🕓')
    let res = await fetch('https://api.jikan.moe/v4/anime?q=' + encodeURIComponent(text))
-   let json = await res.json()
+   let json = (await res.json()).data
    let txt = `乂  *A N I M E  -  I N F O*\n\n`
       txt += `	◦  *Titulo* : ${json[0].title}\n`
 	  txt += `	◦  *Id* : ${json[0].mal_id}\n`

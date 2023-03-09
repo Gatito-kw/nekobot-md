@@ -9,7 +9,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
    let result = json.items.map(v => v).filter(v => v)
    if (!result.length) return m.reply('No se encontraron resultados, intente con un nombre más Corto.').then(_ => m.react('✖️'))
    let txt = `乂  *G I T H U B  -  S E A R C H*`
-   for (let i = 0; i < (15 <= res.length ? 15 : res.length); i++) {
+   for (let i = 0; i < (15 <= result.length ? 15 : result.length); i++) {
       txt += `\n\n`
       txt += `	◦  *Nro* : ${1+i}\n`
 	  txt += `	◦  *Url* : ${result[i].html_url}\n`

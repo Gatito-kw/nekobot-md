@@ -1,3 +1,4 @@
+import { sticker } from '../lib/sticker.js'
 import axios from 'axios'
 
 let handler = async (m, { conn, text }) => {
@@ -30,7 +31,9 @@ let handler = async (m, { conn, text }) => {
          'Content-Type': 'application/json'
       }
    })
-   await m.reply(`${json.data.result.image}`)
+   const buffer = Buffer.from(json.data.result.image, 'base64')
+   let stick = await sticker(false, buffer, global.wmbot.name, global.wmbot.author)
+   await conn.sendFile(m.chat, stick, 'Quotly.webp', '', m)
 }
 
 handler.help = ['quotly']

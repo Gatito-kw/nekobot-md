@@ -11,7 +11,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 	  txt += `	◦  *Tipo* : ${json[0].type}\n`
 	  txt += `	◦  *Episodios* : ${json[0].episodes}\n`
 	  txt += `	◦  *Estado* : ${json[0].status}\n`
-	  txt += `	◦  *Emitido* : ${data[0].aired.string}`
+	  txt += `	◦  *Emitido* : ${json[0].aired.string}`
 	  txt += `	◦  *Clasificacion* : ${json[0].rating}\n`
 	  txt += `	◦  *Duracion* : ${json[0].duration}\n`
 	  txt += `	◦  *Puntaje* : ${json[0].score}\n`

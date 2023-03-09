@@ -6,20 +6,20 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
    let json = await res.json()
    let result = json.items.map(v => v).filter(v => v)
    let txt = `乂  *G I T H U B  -  S E A R C H*`
-   for (let i = 0; i < result.length; i++) {
+   for (let i = 0; i < result[i].length; i++) {
       txt += `\n\n`
       txt += `	◦  *Nro* : ${1+i}`
-	  txt += `	◦  *Url* : ${result.html_url}\n`
-	  txt += `	◦  *Creador* : ${result.owner.login}\n`
-	  txt += `	◦  *Nombre* : ${result.name}\n`
-	  txt += `	◦  *Subido* : ${formatDate(result.created_at)}\n`
-	  txt += `	◦  *Actualizado* : ${formatDate(result.updated_at)}\n`
-	  txt += `	◦  *Visitas* : ${result.watchers}\n`
-	  txt += `	◦  *Bifurcado* : ${result.forks}\n`
-	  txt += `	◦  *Estrellas* : ${result.stargazers_count}\n`
-	  txt += `	◦  *Issues* : ${result.open_issues}\n`
-	  txt += `	◦  *Descripcion* : ${result.description ? result.description : '×'}\n`
-	  txt += `	◦  *Clone* : ${result.clone_url}`
+	  txt += `	◦  *Url* : ${result[i].html_url}\n`
+	  txt += `	◦  *Creador* : ${result[i].owner.login}\n`
+	  txt += `	◦  *Nombre* : ${result[i].name}\n`
+	  txt += `	◦  *Subido* : ${formatDate(result[i].created_at)}\n`
+	  txt += `	◦  *Actualizado* : ${formatDate(result[i].updated_at)}\n`
+	  txt += `	◦  *Visitas* : ${result[i].watchers}\n`
+	  txt += `	◦  *Bifurcado* : ${result[i].forks}\n`
+	  txt += `	◦  *Estrellas* : ${result[i].stargazers_count}\n`
+	  txt += `	◦  *Issues* : ${result[i].open_issues}\n`
+	  txt += `	◦  *Descripcion* : ${result[i].description ? result[i].description : '×'}\n`
+	  txt += `	◦  *Clone* : ${result[i].clone_url}`
    }
    let img = await (await fetch(json.items[0].owner.avatar_url)).buffer()
    await conn.sendUrl(m.chat, txt, m, {

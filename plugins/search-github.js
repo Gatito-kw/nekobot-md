@@ -5,9 +5,9 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
    if (!text) return m.reply('Ingresa el nombre de un repositorio de Github.')
    await m.react('🕓')
    let res = await fetch(global.API('https://api.github.com', '/search/repositories', { q: text }))
-   if (!res.length) return m.reply('No se encontraron resultados, intente con un nombre más Corto.').then(_ => m.react('✖️'))
    let json = await res.json()
    let result = json.items.map(v => v).filter(v => v)
+   if (!result.length) return m.reply('No se encontraron resultados, intente con un nombre más Corto.').then(_ => m.react('✖️'))
    let txt = `乂  *G I T H U B  -  S E A R C H*`
    for (let i = 0; i < result.length; i++) {
       txt += `\n\n`

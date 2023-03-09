@@ -25,7 +25,6 @@ let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) =
          title: global.textbot.title,
       }
    })
-   await conn.sendMessage(m.chat, { audio: { url: res.url }, fileName: _res[0].title + '.mp3', mimetype: 'audio/mp4' }, { quoted: m })
    await m.react('✅')
 }
 

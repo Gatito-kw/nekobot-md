@@ -1,3 +1,4 @@
+import moment from 'moment-timezone'
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
@@ -8,18 +9,11 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
    let txt = `乂  *G I T H U B  -  S E A R C H*`
    for (let i = 0; i < result.length; i++) {
       txt += `\n\n`
-      txt += `	◦  *Nro* : ${1+i}`
+      txt += `	◦  *Nro* : ${1+i}\n`
 	  txt += `	◦  *Url* : ${result[i].html_url}\n`
-	  txt += `	◦  *Creador* : ${result[i].owner.login}\n`
 	  txt += `	◦  *Nombre* : ${result[i].name}\n`
-	  txt += `	◦  *Subido* : ${formatDate(result[i].created_at)}\n`
-	  txt += `	◦  *Actualizado* : ${formatDate(result[i].updated_at)}\n`
-	  txt += `	◦  *Visitas* : ${result[i].watchers}\n`
-	  txt += `	◦  *Bifurcado* : ${result[i].forks}\n`
-	  txt += `	◦  *Estrellas* : ${result[i].stargazers_count}\n`
-	  txt += `	◦  *Issues* : ${result[i].open_issues}\n`
-	  txt += `	◦  *Descripcion* : ${result[i].description ? result[i].description : '×'}\n`
-	  txt += `	◦  *Clone* : ${result[i].clone_url}`
+	  txt += `	◦  *Creador* : ${result[i].owner.login}\n`
+	  txt += `	◦  *Creado* : ${moment(result[i].created_at).format('DD/MM/YY - HH:mm:ss')}\n`
    }
    let img = await (await fetch(json.items[0].owner.avatar_url)).buffer()
    await conn.sendUrl(m.chat, txt, m, {
@@ -38,13 +32,3 @@ handler.tags = ['search']
 handler.command = ['githubsearch']
 
 export default handler
-
-function formatDate(n, locale = 'es') {
-    let d = new Date(n)
-    return d.toLocaleDateString(locale, {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    })
-  }

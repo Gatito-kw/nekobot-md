@@ -9,7 +9,7 @@ let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) =
    if (!urls) return m.reply('El mensaje que etiquetaste no contiene el resultado de Github Search.')
    if (urls.length < text) return m.reply('Resultado no Encontrado.')
    await m.react('🕓')
-   let res = await fetch(global.API('https://api.github.com', '/search/repositories', { q: url.replace("https://github.com/", "") }))
+   let res = await fetch(global.API('https://api.github.com', '/search/repositories', { q: urls.replace("https://github.com/", "") }))
    let json = await res.json()
    let result = json.items.map(v => v).filter(v => v)
    let txt = `乂  *G I T H U B  -  I N F O*\n\n`

@@ -30,7 +30,7 @@ let handler = async (m, { conn, text }) => {
          'Content-Type': 'application/json'
       }
    })
-   await m.reply(`${JSON.stringify(json, null, 1)}`)
+   await m.reply(`${json.data.result.image}`)
 }
 
 handler.help = ['quotly']

@@ -12,7 +12,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 }
 
 handler.help = ['wallpaper']
-handler.tags = ['img']
+handler.tags = ['image']
 handler.command = ['wallpaper']
 
 handler.react_error = true

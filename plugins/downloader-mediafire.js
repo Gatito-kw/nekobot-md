@@ -27,7 +27,7 @@ let handler = async (m, { conn, args }) => {
          title: global.textbot.title,
       }
    })
-   // await conn.sendFile(m.chat, res.link, res.name, null, m, null, { mimetype: res.mime, asDocument: true })
+   await conn.sendFile(m.chat, res.link, res.name, null, m, null, { mimetype: res.mime, asDocument: true })
    await m.react('✅')
 }
 

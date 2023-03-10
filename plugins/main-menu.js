@@ -42,7 +42,7 @@ let handler = async (m, { conn, text, usedPrefix, __dirname }) => {
       'maker': 'MAKER',
       'group': 'GRUPO',
       'anime': 'ANIME',
-      'download': 'DESCARGAS',
+      'downloader': 'DESCARGAS',
       'search': 'BUSQUEDA',
       'tool': 'AJUSTES',
       'database': 'DATABASE',

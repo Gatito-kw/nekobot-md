@@ -11,7 +11,7 @@ let handler = async (m, { conn, args }) => {
    let res = await mediafireDl(args[0])
    if (Number(res.size.split('MB')[0]) >= limit) return m.reply(`El archivo pesa mas de ${limit} MB, se canceló la Descarga.`).then(async _ => await m.react('✖️'))
    if (Number(res.size.split('GB')[0]) >= 0) return m.reply(`El archivo pesa mas de ${limit} MB, se canceló la Descarga.`).then(async _ => await m.react('✖️'))
-   let txt = `\t\t\t× 🧇 *Mediafire - DL* 🧇 ×\n\n`
+   let txt = `乂  *M E D I A F I R E  -  D L*\n\n`
       txt += `	◦  *Nombre* : ${res.name}\n`
       txt += `	◦  *Peso* : ${res.size}\n`
       txt += `	◦  *Publicado* : ${res.date}\n`

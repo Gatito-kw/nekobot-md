@@ -11,7 +11,7 @@ let handler = async (m, { conn, args }) => {
    let res = await mediafireDl(args[0])
    if (Number(res.size.split('MB')[0]) >= limit) return m.reply(`El archivo pesa mas de ${limit} MB, se canceló la Descarga.`).then(async _ => await m.react('✖️'))
    if (Number(res.size.split('GB')[0]) >= 0) return m.reply(`El archivo pesa mas de ${limit} MB, se canceló la Descarga.`).then(async _ => await m.react('✖️'))
-   let txt = `\t\t\t*Mediafire - downloader*\n\n`
+   let txt = `\t\t\t\t*Mediafire - Downloader*\n\n`
       txt += `	◦  *Nombre* : ${res.name}\n`
       txt += `	◦  *Peso* : ${res.size}\n`
       txt += `	◦  *Publicado* : ${res.date}\n`
@@ -28,6 +28,7 @@ let handler = async (m, { conn, args }) => {
       }
    })
    // await conn.sendFile(m.chat, res.link, res.name, null, m, null, { mimetype: res.mime, asDocument: true })
+   await m.react('✅')
 }
 
 handler.help = ['mediafire']

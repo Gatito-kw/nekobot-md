@@ -1,20 +1,40 @@
+import fetch from 'node-fetch'
 import axios from 'axios'
 import cheerio from 'cheerio'
 
-let handler = async (m, { conn, args, usedPrefix, command }) => {
-   if (!args[0]) return m.reply(`Use example ${usedPrefix}${command} https://www.mediafire.com/file/941xczxhn27qbby/GBWA_V12.25FF-By.SamMods-.apk/file`)
+let limit = 150 // 150 MB
+
+let handler = async (m, { conn, args }) => {
+   if (!args[0]) return m.reply('Ingrese el enlace de un archivo de Mediafire.')
+   if (!args[0].match(/mediafire/gi)) return m.reply('El enlace deve ser de un archivo de Mediafire.')
+   await m.react('🕓')
    let res = await mediafireDl(args[0])
-   await m.reply(`${JSON.stringify(res, null, 1)}`)
+   if (Number(res.size.split('MB')[0]) >= limit) return m.reply(`El archivo pesa mas de ${limit} MB, se canceló la Descarga.`).then(async _ => await m.react('✖️'))
+   if (Number(res.size.split('GB')[0]) >= 0) return m.reply(`El archivo pesa mas de ${limit} MB, se canceló la Descarga.`).then(async _ => await m.react('✖️'))
+   let txt = `\t\t\t*Mediafire - downloader*\n\n`
+      txt += `	◦  *Nombre* : ${res.name}\n`
+      txt += `	◦  *Peso* : ${res.size}\n`
+      txt += `	◦  *Publicado* : ${res.date}\n`
+      txt += `	◦  *MimeType* : ${res.mime}\n\n`
+      txt += `El archivo se esta enviando, Espere un momento.`
+   let img = await (await fetch('https://i.ibb.co/wLQFn7q/logo-mediafire.jpg')).buffer()
+   await conn.sendUrl(m.chat, txt, m, {
+      externalAdReply: {
+         mediaType: 1,
+         renderLargerThumbnail: true,
+         thumbnail: img,
+         thumbnailUrl: img,
+         title: global.textbot.title,
+      }
+   })
+   // await conn.sendFile(m.chat, res.link, res.name, null, m, null, { mimetype: res.mime, asDocument: true })
 }
 
 handler.help = ['mediafire']
 handler.tags = ['downloader']
 handler.command = ['mediafire', 'mdfire']
 
-handler.limit = true
-
 export default handler
-
 
 async function mediafireDl(url) {
    const res = await axios.get(`https://www-mediafire-com.translate.goog/${url.replace('https://www.mediafire.com/','')}?_x_tr_sl=en&_x_tr_tl=fr&_x_tr_hl=en&_x_tr_pto=wapp`)

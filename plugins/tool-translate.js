@@ -24,9 +24,9 @@ let handler = async (m, { args, usedPrefix, command }) => {
 
     try {
        let result = await translate(text, { to: lang, autoCorrect: true }).catch(_ => null) 
-       m.reply(result.text)
+       await m.reply(result.text)
     } catch (e) {
-        throw err
+        return m.reply(err)
     } 
 
 }

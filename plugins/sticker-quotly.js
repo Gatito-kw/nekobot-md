@@ -4,7 +4,7 @@ import axios from 'axios'
 let handler = async (m, { conn, text }) => {
    if (!text) return m.reply('Ingresa un Texto.')
    if (text.length > 30) return m.reply('Solo se permiten 30 caracteres como Máximo.')
-   let pp = await conn.profilePictureUrl(m.sender, 'image').catch(_ => global.imgbot.noprofile)
+   let pp = await conn.profilePictureUrl(m.sender, 'image').catch(_ => global.imgbot.noprofileurl)
    const obj = {
       "type": "quote",
       "format": "png",

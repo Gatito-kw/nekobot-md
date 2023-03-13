@@ -3,7 +3,7 @@ import Jimp from 'jimp'
 let handler = async (m, { args, conn, command, usedPrefix }) => {
    let q = m.quoted ? m.quoted : m
    let mime = (q.msg || q).mimetype || q.mediaType || ''
-   if (/image/g.test(mime)) return m.reply('Responde a una Imagen.')
+   if (!/image/g.test(mime)) return m.reply('Responde a una Imagen.')
    let media = await q.download()
    if (args[0] == '--full') {
       let { img } = await pepe(media)
@@ -27,7 +27,7 @@ let handler = async (m, { args, conn, command, usedPrefix }) => {
 }
 
 handler.help = ['setppbot']
-handler.tags = ['tool']
+handler.tags = ['owner']
 handler.command = ['setppbot']
 
 handler.owner = true

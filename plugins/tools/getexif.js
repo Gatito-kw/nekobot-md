@@ -1,5 +1,5 @@
-let { format } = require("util")
-let { Image } = require("node-webpmux")
+import { format } from 'util'
+import { Image } from 'node-webpmux'
 
 let handler = async (m) => {
    if (!m.quoted) return m.reply('Responde a un Sticker.')

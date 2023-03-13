@@ -1,6 +1,6 @@
 import Jimp from 'jimp'
 
-let handler = async (m, { conn, command, usedPrefix }) => {
+let handler = async (m, { args, conn, command, usedPrefix }) => {
    let q = m.quoted ? m.quoted : m
    let mime = (q.msg || q).mimetype || q.mediaType || ''
    if (/image/g.test(mime)) return m.reply('Responde a una Imagen.')
@@ -31,7 +31,7 @@ handler.help = ['setppgroup']
 handler.tags = ['tool']
 handler.command = ['setppgroup', 'setppgp']
 
-handler.owner = true
+handler.admin = true
 
 export default handler
 

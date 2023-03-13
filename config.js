@@ -52,8 +52,8 @@ global.packname = '~>'
 global.author = 'Neko Bot'
 
 global.wmbot = {
-   name: 'Sticker',
-   author: 'NK - ネコ',
+   name: 'Sticker.ly',
+   author: 'NK - ねこ',
 }
 
 global.multiplier = 69

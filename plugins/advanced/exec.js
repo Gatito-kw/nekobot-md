@@ -3,8 +3,8 @@ import { format } from 'util'
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
 import { createRequire } from 'module'
-import db from '../lib/database.js'
-import connection from '../lib/connection.js'
+import db from '../../lib/database.js'
+import connection from '../../lib/connection.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const require = createRequire(__dirname)

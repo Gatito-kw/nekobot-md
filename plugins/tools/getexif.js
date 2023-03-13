@@ -1,12 +1,13 @@
 import { format } from 'util'
-import pkg from 'node-webpmux'
-const { Image } = pkg
+const { default: { Image } } = await import('node-webpmux')
 
 let handler = async (m) => {
-   if (!m.quoted) return m.reply('Responde a un Sticker.')
-   if (!/sticker/.test(mime)) return m.reply('Pndj responde a un Sticker.')
-   let exif = await m.quoted.download()
-   await m.reply(format(JSON.parse(exif.exif.slice(22).toString())))
+   let isStick = 'Responde a un Sticker.'
+   if (!m.quoted) return m.reply(isStick)
+   if (!/sticker/.test(m.quoted.mtype)) return m.reply(isStick)
+   let img = new Image()
+   await img.load(await m.quoted.download())
+   await m.reply(format(JSON.parse(img.exif.slice(22).toString())))
 }
 
 handler.help = ['getexif']

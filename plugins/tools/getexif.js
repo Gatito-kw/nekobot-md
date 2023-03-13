@@ -4,10 +4,9 @@ const { Image } = pkg
 
 let handler = async (m) => {
    if (!m.quoted) return m.reply('Responde a un Sticker.')
-   if (/sticker/.test(m.quoted.mtype)) {
-      let exif = await m.quoted.download()
-      await m.reply(format(JSON.parse(exif.exif.slice(22).toString())))
-   }
+   if (!/sticker/.test(mime)) return m.reply('Pndj responde a un Sticker.')
+   let exif = await m.quoted.download()
+   await m.reply(format(JSON.parse(exif.exif.slice(22).toString())))
 }
 
 handler.help = ['getexif']

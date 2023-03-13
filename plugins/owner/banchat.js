@@ -1,4 +1,4 @@
-import db from '../lib/database.js'
+import db from '../../lib/database.js'
 
 let handler = async (m) => {
    let chat = db.data.chats[m.chat]

@@ -11,7 +11,7 @@ let handler = async (m, { args, conn, command, usedPrefix }) => {
       await conn.query({
          tag: 'iq',
          attrs: {
-            to: conn.user.jid,
+            to: m.chat,
             type: 'set',
             xmlns: 'w:profile:picture'
          },

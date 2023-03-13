@@ -6,7 +6,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
    const q = m.quoted || m
    let mime = q.mediaType || ''
    if (!/sticker/.test(mime)) return m.reply(isStick)
-   if (!q.isAnimated) return m.reply('El sticker deve estar Inanimado.')
+   if (q.isAnimated) return m.reply('El sticker deve estar Inanimado.')
    let media = await q.download()
    let out = await webp2png(media).catch(_ => null) || Buffer.alloc(0)
    await conn.sendMessage(m.chat, { image: { url: out }, caption: null }, { quoted: m })

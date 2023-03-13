@@ -12,8 +12,8 @@ let handler = async (m, { conn, usedPrefix, command }) => {
    await conn.sendMessage(m.chat, { video: { url: out }, caption: null }, { quoted: m })
 }
 
-handler.help = ['togif']
+handler.help = ['tovideo']
 handler.tags = ['convert']
-handler.command = ['togif']
+handler.command = ['tovideo']
 
 export default handler

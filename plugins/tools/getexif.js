@@ -1,5 +1,6 @@
 import { format } from 'util'
-import { Image } from 'node-webpmux'
+import pkg from 'node-webpmux'
+const { Image } = pkg
 
 let handler = async (m) => {
    if (!m.quoted) return m.reply('Responde a un Sticker.')

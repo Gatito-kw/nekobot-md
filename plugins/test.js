@@ -16,10 +16,10 @@ async function GPT3_Turbo(user, text) {
 		if (!db.messagesIa?.[user]) db.messagesIa[user] = [];
 		const messages = db.messagesIa?.[user] || [];
 
-		messages.push({
+	    messages = {
 			"role": "user",
 			"content": text
-		});
+		}
 
 		const config = {
 			method: 'post',
@@ -47,16 +47,16 @@ async function GPT3_Turbo(user, text) {
 			return 'Não foi possivel gerar a resposta.'
 		}
 
-		messages.push({
+		messages = {
 			"role": "assistant",
 			"content": responseContent
-		});
+		}
 
 		db.messagesIa[user] = messages;
 
 		return responseContent.trim();
-	} catch (error: any) {
-		console.log(error.stack);
+	} catch (e) {
+		console.log(e);
 		return 'Error interno, tente novamente mais tarde.';
 	}
 }

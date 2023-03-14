@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-let handler = async (m, { conn, usedPrefix, __dirname }) => {
+let handler = async (m, { conn, text }) => {
    let res = await GPT3_Turbo(m.sender, text)
    await m.reply(`${JSON.stringify(res, null, 1)}`)
 }

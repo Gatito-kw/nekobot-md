@@ -1,13 +1,13 @@
 import yts from 'yt-search'
 
 let handler = async (m, { conn, command, text, usedPrefix }) => {
-	if (!text) return m.reply('Ingresa el titulo de un video o musica de YouTube')
+	if (!text) return m.reply('Ingresa el titulo de un video o musica de YouTube.')
 	await m.react('🕓')
 	let vid = (await yts(text)).videos[0]
-	if (!vid) return m.reply('No se encontraron resultados, intente con un nombre más corto').then(async _ => await m.react('✖️'))
+	if (!vid) return m.reply('No se encontraron resultados, intente con un nombre más Corto.').then(async _ => await m.react('✖️'))
 	let { title, description, thumbnail, videoId, timestamp, views, ago, url, author } = vid
 	let link = 'https://youtu.be/' + videoId
-	let txt = `\t\t\t× 🥮 *YouTube - Play* 🥮 ×\n\n`
+	let txt = `       *YOUTUBE  PLAY*`
        txt += ` ◦  *Titulo* : ${title || '×'}\n`
        txt += ` ◦  *Duración* : ${timestamp || '×'}\n`
        txt += ` ◦  *Visitas* : ${sNum(views) || views || '×'}\n`
@@ -15,7 +15,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
        txt += ` ◦  *Autor* : ${author.name || '×'}\n`
        txt += ` ◦  *Id* : ${videoId}\n`
        txt += ` ◦  *Url* : ${link}\n`
-    await conn.sendButton(m.chat, txt, 'Elija un formato de descarga mp3 o mp4', `${thumbnail}`, [['Audio 🎧', `${usedPrefix}ytmp3 ${link} --yes`], ['Video 🎥', `${usedPrefix}ytmp4 ${link} --yes`]], m)
+    await conn.sendButton(m.chat, txt, 'Elija un formato de descarga mp3 o mp4.', `${thumbnail}`, [['Audio 🎧', `${usedPrefix}ytmp3 ${link} --yes`], ['Video 🎥', `${usedPrefix}ytmp4 ${link} --yes`]], m)
     await m.react('✅')
 }
 

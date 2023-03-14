@@ -43,14 +43,17 @@ function start(file) {
   let p = fork()
   p.on('message', data => {
     switch (data) {
+      case 'stop':
+        p.process.kill()
+      break
       case 'reset':
         p.process.kill()
         isRunning = false
         start.apply(this, arguments)
-        break
+      break
       case 'uptime':
         p.send(process.uptime())
-        break
+      break
     }
   })
   p.on('exit', (_, code) => {

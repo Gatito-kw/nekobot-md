@@ -2,12 +2,12 @@ import cheerio from 'cheerio'
 import fetch from 'node-fetch'
 
 let handler = async(m, { conn, text, usedPrefix, command }) => {
-    if (!text) return m.reply('Ingresa que imagen deseas buscar en Pinterest.')
-    await m.react('🕓')
-    let img = await pinterest(text)
-    if (!img.url) return m.react('❌')
-    await conn.sendButton(m.chat, `*PINTEREST*`, 'Click para la siguiente Imagen', img.url, [['Siguiente ➡️', `${usedPrefix + command} ${text}`]], m)
-    await m.react('✅')
+   if (!text) return m.reply('Ingresa que imagen deseas buscar en Pinterest.')
+   await m.react('🕓')
+   let img = await pinterest(text)
+   if (!img.url) return m.react('❌')
+   await conn.sendButton(m.chat, `*PINTEREST*`, 'Click para la siguiente Imagen', img.url, [['Siguiente ➡️', `${usedPrefix + command} ${text}`]], m)
+   await m.react('✅')
 }
 
 handler.help = ['pinterest']

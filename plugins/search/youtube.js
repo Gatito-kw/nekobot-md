@@ -7,7 +7,7 @@ let handler = async (m, {conn, usedPrefix, text }) => {
    let results = await yts(text)
    let res = results.all.map(v => v).filter(v => v.type == "video")
    if (!res.length) return m.reply('No se encontraron resultados, intente con un nombre más Corto.').then(_ => m.react('✖️'))
-   let txt = `乂  *Y T  -  S E A R C H*`
+   let txt = `*乂 YouTube - Search*`
    for (let i = 0; i < (15 <= res.length ? 15 : res.length); i++) {
       txt += `\n\n`
       txt += `	◦  *Nro* : ${1+i}\n`

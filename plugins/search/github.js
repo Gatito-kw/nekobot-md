@@ -8,7 +8,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
    let json = await res.json()
    let result = json.items.map(v => v).filter(v => v)
    if (!result.length) return m.reply('No se encontraron resultados, intente con un nombre más Corto.').then(_ => m.react('✖️'))
-   let txt = `乂  *G I T H U B  -  S E A R C H*`
+   let txt = `*乂 Github - Search*`
    for (let i = 0; i < (15 <= result.length ? 15 : result.length); i++) {
       txt += `\n\n`
       txt += `	◦  *Nro* : ${1+i}\n`

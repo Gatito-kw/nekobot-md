@@ -31,4 +31,6 @@ handler.help = ['google']
 handler.tags = ['internet']
 handler.command = ['google'] 
 
+handler.react_error = true
+
 export default handler

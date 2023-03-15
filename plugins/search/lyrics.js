@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-   let () return m.reply('Ingresa el nombre de una Música.')
+   let (!text) return m.reply('Ingresa el nombre de una Música.')
    await m.react('🕓')
    let res = await fetch('https://api.popcat.xyz/lyrics?song=' + encodeURIComponent(text))
    if (!res.ok) return m.react('❌')

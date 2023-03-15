@@ -1,19 +1,29 @@
 import { googleIt } from '@bochilteam/scraper'
 
-let handler = async (m, { conn, command, args }) => {
-   const fetch = (await import('node-fetch')).default
-   let full = /f$/i.test(command)
-   let text = args.join` `
-   if (!text) return conn.reply(m.chat, '❄️ Que desea buscar en Google?', m)
+let handler = async (m, { conn, text, command, args }) => {
+   if (!text) return m.reply('Ingresa lo que deseas buscar en Google.')
+   await m.react('🕓')
    let url = 'https://google.com/search?q=' + encodeURIComponent(text)
    let search = await googleIt(text)
    let res = search.articles.map(v => v).filter(v => v)
-   return console.log(res)
-   let txt = `\n\n`
+   let txt = `*乂 Google - Search*`
    for (let i = 0; i < (15 <= res.length ? 15 : res.length); i++) {
-      txt += ``
+      txt += `\n\n`
+      txt += `	◦  *Titulo* : ${res[i].title}\n`
+      txt += `	◦  *Url* : ${res[i].url}\n`
+      txt += `	◦  *Descripcion* : ${res[i].description}\n`
    }
-   // https://i.ibb.co/NNVScnq/logo-google.jpg
+   let img = await (await fetch('https://i.ibb.co/NNVScnq/logo-google.jpg')).buffer()
+   await conn.sendUrl(m.chat, txt, m, {
+      externalAdReply: {
+         mediaType: 1,
+         renderLargerThumbnail: true,
+         thumbnail: img,
+         thumbnailUrl: img,
+         title: global.textbot.title,
+      }
+   })
+   await m.react('✅')
 }
 
 handler.help = ['google']

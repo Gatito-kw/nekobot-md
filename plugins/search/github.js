@@ -2,7 +2,7 @@ import moment from 'moment-timezone'
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-   if (!text) return m.reply('Ingresa el nombre de un repositorio de Github.')
+   if (!text) return m.reply('Ingresa lo que deseas buscar en Github.')
    await m.react('🕓')
    let res = await fetch(global.API('https://api.github.com', '/search/repositories', { q: text }))
    let json = await res.json()

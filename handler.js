@@ -510,10 +510,9 @@ export async function handler(chatUpdate) {
                 } catch (e) {
                     // Error occured
                     m.error = e
-                    //console.error(e)
+                    console.error(e)
                     if (e) {
                         let text = format(e)
-                        console.error(text)
                         for (let key of Object.values(global.APIKeys))
                             text = text.replace(new RegExp(key, 'g'), '#HIDDEN#')
                         if (e.name)

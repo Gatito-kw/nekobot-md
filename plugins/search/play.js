@@ -7,14 +7,14 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
 	if (!vid) return m.reply('No se encontraron resultados, intente con un nombre más Corto.').then(async _ => await m.react('✖️'))
 	let { title, description, thumbnail, videoId, timestamp, views, ago, url, author } = vid
 	let link = 'https://youtu.be/' + videoId
-	let txt = `       *YOUTUBE  PLAY*\n\n`
-       txt += ` ◦  *Titulo* : ${title || '×'}\n`
-       txt += ` ◦  *Duración* : ${timestamp || '×'}\n`
-       txt += ` ◦  *Visitas* : ${sNum(views) || views || '×'}\n`
-       txt += ` ◦  *Publicado* : ${eYear(ago) || ago || '×'}\n`
-       txt += ` ◦  *Autor* : ${author.name || '×'}\n`
-       txt += ` ◦  *Id* : ${videoId}\n`
-       txt += ` ◦  *Url* : ${link}\n`
+	let txt = `\t\t\t🧇 *YouTube Play* 🧇\n\n`
+       txt += `   ◦  *Titulo* : ${title || '×'}\n`
+       txt += `   ◦  *Duración* : ${timestamp || '×'}\n`
+       txt += `   ◦  *Visitas* : ${sNum(views) || views || '×'}\n`
+       txt += `   ◦  *Publicado* : ${eYear(ago) || ago || '×'}\n`
+       txt += `   ◦  *Autor* : ${author.name || '×'}\n`
+       txt += `   ◦  *Id* : ${videoId}\n`
+       txt += `   ◦  *Url* : ${link}\n`
     await conn.sendButton(m.chat, txt, 'Elija un formato de descarga mp3 o mp4.', `${thumbnail}`, [['Audio 🎧', `${usedPrefix}ytmp3 ${link} --yes`], ['Video 🎥', `${usedPrefix}ytmp4 ${link} --yes`]], m)
     await m.react('✅')
 }

@@ -1,4 +1,5 @@
 import { googleIt } from '@bochilteam/scraper'
+import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text, command, args }) => {
    if (!text) return m.reply('Ingresa lo que deseas buscar en Google.')

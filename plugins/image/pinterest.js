@@ -8,7 +8,7 @@ let handler = async(m, { conn, text, usedPrefix, command }) => {
    let json = await res.json()
    let data = json?.resource_response?.data?.results
    let img = data[~~(Math.random() * (data?.length))]?.images?.orig
-   if (!img) return m.reply('No se encontró la imagen, intenta con otro Nombre.').then(async _ => await m.react('✖️'))
+   if (!img) return m.reply('Imagen no encontrada, Intenta con otro Nombre.').then(async _ => await m.react('✖️'))
    await conn.sendButton(m.chat, `*PINTEREST*`, 'Click para la siguiente Imagen', img.url, [['Siguiente ➡️', `${usedPrefix + command} ${text}`]], m)
    await m.react('✅')
 }

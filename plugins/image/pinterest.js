@@ -1,3 +1,4 @@
+import cheerio from 'cheerio'
 import axios from 'axios'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
@@ -27,7 +28,7 @@ async function pinterest(q) {
    })
    let result = []
    let has = []
-   let $ = require ('cheerio').load(anu.data)
+   let $ = cheerio.load(anu.data)
    $('div > a').get().map(b => {
       result.push($(b).find('img').attr('src'))
    })

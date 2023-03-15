@@ -7,7 +7,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
 	if (!vid) return m.reply('No se encontraron resultados, intente con un nombre más Corto.').then(async _ => await m.react('✖️'))
 	let { title, description, thumbnail, videoId, timestamp, views, ago, url, author } = vid
 	let link = 'https://youtu.be/' + videoId
-	let txt = `       *YOUTUBE  PLAY*`
+	let txt = `       *YOUTUBE  PLAY*\n\n`
        txt += ` ◦  *Titulo* : ${title || '×'}\n`
        txt += ` ◦  *Duración* : ${timestamp || '×'}\n`
        txt += ` ◦  *Visitas* : ${sNum(views) || views || '×'}\n`

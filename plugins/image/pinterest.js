@@ -27,16 +27,9 @@ async function pinterest(q) {
          }
    })
    let result = []
-   let has = []
    let $ = cheerio.load(anu.data)
    $('div > a').get().map(b => {
       result.push($(b).find('img').attr('src'))
    })
-   result.forEach(v => {
-      has.push(v.replace(/236/g, '736'))
-   })
-   has.shift()
-   let ess = {}
-   ess.result = has
-   return ess
+   return result
 }

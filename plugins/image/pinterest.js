@@ -5,6 +5,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     if (!text) return m.reply('Ingresa que imagen deseas buscar en Pinterest.')
     await m.react('🕓')
     let res = await pinterest(text)
+    return console.log(res)
     let getimg = res.result[Math.floor(Math.random() * res.result.length)]
     let img = await getimg.buffer()
     if (img == undefined) return m.reply('No se encontró la imagen, intenta con otro Nombre.').then(async _ => await m.react('✖️'))

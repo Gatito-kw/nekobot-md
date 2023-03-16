@@ -11,7 +11,7 @@ let handler = async (m, { conn }) => {
    let url = await uploadImage(img)
    let res = await fetch(`https://api.trace.moe/search?anilistInfo&url=${url}`)
    let json = await res.json()
-   return console.log(json)
+   return console.log(json.anilist)
    let link = `https://media.trace.moe/video/${anilist_id}/${encodeURIComponent(filename)}?t=${at}&token=${tokenthumb}`
    let txt = `*乂 What - Anime*\n\n`
       txt += `	◦  *Titulo* : ${title}\n`

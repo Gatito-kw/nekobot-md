@@ -1,10 +1,20 @@
 import fetch from 'node-fetch'
 import fs from 'fs'
 
-let handler = async (m, { conn, args }) => {
-   let name = (await conn.groupMetadata(m.chat)).subject
-   let link = 'https://chat.whatsapp.com/' + await conn.groupInviteCode(m.chat)
-   let pp = await conn.profilePictureUrl(m.chat, 'image').catch(_ => global.imgbot.noprofileurl)
+let handler = async (m, { conn, args, text }) => {
+   let from = text.endsWith('@g.us') ? text : m.chat
+   if (args[0] == '--list') {
+      let groups = Object.entries(await conn.groupFetchAllParticipating()).slice(0).map(entry => entry[1])
+      let rows = []
+      groups.map(x => {
+         rows.push([x.subject, `${usedPrefix}grouplink ${x.id}`, `[ Usuarios: ${x.participants.length} | Creación : ${moment(x.creation * 1000).format('DD/MM/YY - HH:mm:ss')} ]`])
+      })
+      await conn.sendList(m.chat, null, `*Lista de Grupos. 🍟*\n\n	◦  *Total* : ${groups.length}`, null, 'Tap!', [['GRUPOS', rows]], m)
+      return !0
+   }
+   let name = (await conn.groupMetadata(from)).subject
+   let link = 'https://chat.whatsapp.com/' + await conn.groupInviteCode(from)
+   let pp = await conn.profilePictureUrl(from, 'image').catch(_ => global.imgbot.noprofileurl)
    let img = await (await fetch(pp)).buffer()
    await conn.sendUrl(m.chat, '*Enlace del Grupo. 🍟*\n' + link, m, {
       externalAdReply: {

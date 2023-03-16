@@ -9,10 +9,9 @@ let handler = async (m, { conn }) => {
    await m.react('🕓')
    let img = await q.download?.()
    let url = await uploadImage(img)
-   let res = await fetch(`https://api.trace.moe/search?cutBorders&url=${url}`)
+   let res = await fetch(`https://api.trace.moe/search?anilistInfo&url=${url}`)
    let json = await res.json()
    return console.log(json)
-   let { is_adult, title, title_chinese, title_romaji, episode, season, similarity, filename, at, tokenthumb, anilist_id } = json.docs[0]
    let link = `https://media.trace.moe/video/${anilist_id}/${encodeURIComponent(filename)}?t=${at}&token=${tokenthumb}`
    let txt = `*乂 What - Anime*\n\n`
       txt += `	◦  *Titulo* : ${title}\n`

@@ -16,7 +16,7 @@ let handler = async (m, { conn }) => {
       txt += `	◦  *Titulo* : ${result.anilist.title.romaji}\n`
       txt += `	◦  *Id* : ${result.anilist.id}\n`
       txt += `	◦  *Similitud* : ${(result.similarity * 100).toFixed(1)}%\n`
-      txt += `	◦  *Episodio* : ${similarity.episode.toString() || '×'}\n`
+      txt += `	◦  *Episodio* : ${result.episode.toString() || '×'}\n`
       txt += `	◦  *Ecchi* : ${result.anilist.isAdult ? 'Si' : 'No'}\n`
    await conn.sendFile(m.chat, result.video, result.filename, txt, m)
    await m.react('✅')
@@ -25,5 +25,7 @@ let handler = async (m, { conn }) => {
 handler.help = ['whatanime']
 handler.tags = ['tool']
 handler.command = ['whatanime']
+
+handler.react_error = true
 
 export default handler 

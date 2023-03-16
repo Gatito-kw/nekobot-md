@@ -5,20 +5,12 @@ let handler = async (m, { conn }) => {
    let mime = (q.msg || q).mimetype || ''
    if (!/image\/(jpe?g|png)/.test(mime)) return m.reply('Responde a una Imagen.')
    await m.react('🕓')
-   let img = await q.download()
-   let anime = `data:${mime};base64,${img.toString('base64')}`
-   let response = await fetch('https://trace.moe/api/search', {
-      method: 'POST',
-      headers: {
-         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ image: anime }),
-   })
-   console.log(response)
-   if (!response.ok) return m.reply('Anime no Encontrado.').then(_ => m.react('✖️'))
-   let result = await response.json()
-   let { is_adult, title, title_chinese, title_romaji, episode, season, similarity, filename, at, tokenthumb, anilist_id } = result.docs[0]
-   console.log(result)
+   let img = await q.download?.()
+   let url = await uploadImage(img)
+   let res = await fetch(`https://api.trace.moe/search?cutBorders&url=${url}`)
+   let json = await res.json()
+   return console.log(json)
+   let { is_adult, title, title_chinese, title_romaji, episode, season, similarity, filename, at, tokenthumb, anilist_id } = json.docs[0]
    let link = `https://media.trace.moe/video/${anilist_id}/${encodeURIComponent(filename)}?t=${at}&token=${tokenthumb}`
    let txt = `*乂 What - Anime*\n\n`
       txt += `	◦  *Titulo* : ${title}\n`

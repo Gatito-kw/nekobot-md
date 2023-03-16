@@ -2,9 +2,9 @@ import { areJidsSameUser } from '@adiwajshing/baileys'
 import moment from 'moment-timezone'
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, args, text, usedPrefix, command, isAdmin }) => {
+let handler = async (m, { conn, args, text, usedPrefix, command, isAdmin, isBotAdmin }) => {
    let from = text.endsWith('@g.us') ? text : m.chat
-   if (from == m.chat) global.dfail('botAdmin', m, conn)
+   if (from == m.chat && !isBotAdmin) global.dfail('botAdmin', m, conn)
    if (args[0] == '--list') {
       if (!isAdmin) return m.reply('La función de lista es solo para admins del Grupo.')
       let groups = Object.entries(await conn.groupFetchAllParticipating()).slice(0).map(entry => entry[1])

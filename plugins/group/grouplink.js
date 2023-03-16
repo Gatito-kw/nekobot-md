@@ -1,17 +1,21 @@
 import moment from 'moment-timezone'
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, args, text, usedPrefix, command }) => {
+let handler = async (m, { conn, args, text, usedPrefix, command, isBotAdmin }) => {
    let from = text.endsWith('@g.us') ? text : m.chat
    if (args[0] == '--list') {
       let groups = Object.entries(await conn.groupFetchAllParticipating()).slice(0).map(entry => entry[1])
       let rows = []
       groups.map(x => {
-         rows.push([x.subject, `${usedPrefix + command} ${x.id}`, `[ Usuarios: ${x.participants.length} | Creación : ${moment(x.creation * 1000).format('DD/MM/YY - HH:mm:ss')} ]`])
+         rows.push(['GET LINK ➠ ' + x.subject, `${usedPrefix + command} ${x.id}`, `[ Usuarios: ${x.participants.length} | Creación : ${moment(x.creation * 1000).format('DD/MM/YY - HH:mm:ss')} ]`])
       })
       await conn.sendList(m.chat, null, `*Lista de Grupos. 🍟*\n\n	◦  *Total* : ${groups.length}`, null, 'Tap!', [['GRUPOS', rows]], m)
       return !0
    }
+   
+   let groupMetadata = await conn.groupMetadata(from)
+   let isAdm = groupMetadata.participants.filter(v => v.admin).find((v) => v.id === conn.user.id)?.id
+   if (!isAdm) return m.reply('No soy admin de ese Grupo.')
    let name = (await conn.groupMetadata(from)).subject
    let link = 'https://chat.whatsapp.com/' + await conn.groupInviteCode(from)
    let pp = await conn.profilePictureUrl(from, 'image').catch(_ => global.imgbot.noprofileurl)

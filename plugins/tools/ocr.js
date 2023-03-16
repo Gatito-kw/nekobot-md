@@ -13,7 +13,7 @@ let handler = async (m, { conn }) => {
 }
 
 handler.help = ['ocr']
-handler.tags = ['tools']
+handler.tags = ['tool']
 handler.command = ['ocr']
 
 export default handler

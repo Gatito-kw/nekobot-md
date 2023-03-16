@@ -17,8 +17,7 @@ let handler = async (m, { conn, args, text, usedPrefix, command, isAdmin, isBotA
    }
    let groupMetadata = await conn.groupMetadata(from)
    let me = groupMetadata.participants.find(user => areJidsSameUser(user.id, conn.user.id))
-   let user = groupMetadata.participants.find(user => areJidsSameUser(user.id, m.sender))
-   if (!user.admin) return m.reply('Esta función solo puede ser utilizado por los admins del Grupo.')
+   if (!(from == m.chat) && isAdmin) return m.reply('Esta función solo puede ser utilizado por los admins del Grupo.')
    if (!me.admin) return m.reply('No soy admin de ese Grupo.')
    let name = (await conn.groupMetadata(from)).subject
    let link = 'https://chat.whatsapp.com/' + await conn.groupInviteCode(from)

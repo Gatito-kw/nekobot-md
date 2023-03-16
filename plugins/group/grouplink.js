@@ -2,9 +2,11 @@ import { areJidsSameUser } from '@adiwajshing/baileys'
 import moment from 'moment-timezone'
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, args, text, usedPrefix, command, isBotAdmin }) => {
+let handler = async (m, { conn, args, text, usedPrefix, command, isAdmin }) => {
    let from = text.endsWith('@g.us') ? text : m.chat
+   if (from == m.chat) global.dfail('botAdmin', m, conn)
    if (args[0] == '--list') {
+      if (!isAdmin) return m.reply('La función de lista es solo para admins del Grupo.')
       let groups = Object.entries(await conn.groupFetchAllParticipating()).slice(0).map(entry => entry[1])
       let rows = []
       groups.map(x => {
@@ -15,6 +17,8 @@ let handler = async (m, { conn, args, text, usedPrefix, command, isBotAdmin }) =
    }
    let groupMetadata = await conn.groupMetadata(from)
    let me = groupMetadata.participants.find(user => areJidsSameUser(user.id, conn.user.id))
+   let user = groupMetadata.participants.find(user => areJidsSameUser(user.id, m.sender))
+   if (!user.admin) return m.reply('Esta función solo puede ser utilizado por los admins del Grupo.')
    if (!me.admin) return m.reply('No soy admin de ese Grupo.')
    let name = (await conn.groupMetadata(from)).subject
    let link = 'https://chat.whatsapp.com/' + await conn.groupInviteCode(from)
@@ -35,8 +39,5 @@ let handler = async (m, { conn, args, text, usedPrefix, command, isBotAdmin }) =
 handler.help = ['grouplink']
 handler.tags = ['group']
 handler.command = ['grouplink', 'gplink']
-
-handler.group = true
-handler.botAdmin = true
 
 export default handler

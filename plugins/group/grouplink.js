@@ -4,7 +4,10 @@ import fetch from 'node-fetch'
 
 let handler = async (m, { conn, args, text, usedPrefix, command, isAdmin, isBotAdmin }) => {
    let from = text.endsWith('@g.us') ? text : m.chat
-   if (!(from == m.chat && isBotAdmin)) return global.dfail('botAdmin', m, conn)
+   if (!(from == m.chat && isAdmin)) return m.reply('Esta función solo puede ser utilizado por los admins del Grupo.')
+   if (from == m.chat) {
+      if (isBotAdmin) return global.dfail('botAdmin', m, conn)
+   }
    if (args[0] == '--list') {
       if (!isAdmin) return m.reply('La función de lista es solo para admins del Grupo.')
       let groups = Object.entries(await conn.groupFetchAllParticipating()).slice(0).map(entry => entry[1])
@@ -17,7 +20,6 @@ let handler = async (m, { conn, args, text, usedPrefix, command, isAdmin, isBotA
    }
    let groupMetadata = await conn.groupMetadata(from)
    let me = groupMetadata.participants.find(user => areJidsSameUser(user.id, conn.user.id))
-   if (!(from == m.chat) && isAdmin) return m.reply('Esta función solo puede ser utilizado por los admins del Grupo.')
    if (!me.admin) return m.reply('No soy admin de ese Grupo.')
    let name = (await conn.groupMetadata(from)).subject
    let link = 'https://chat.whatsapp.com/' + await conn.groupInviteCode(from)

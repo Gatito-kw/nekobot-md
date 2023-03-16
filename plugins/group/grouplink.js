@@ -4,7 +4,7 @@ import fetch from 'node-fetch'
 
 let handler = async (m, { conn, args, text, usedPrefix, command, isAdmin, isBotAdmin }) => {
    let from = text.endsWith('@g.us') ? text : m.chat
-   if (text.endsWith('@g.us')) return m.reply('Esta función solo puede ser utilizado por los admins del Grupo.')
+   if (text.endsWith('@g.us') && !isAdmin) return m.reply('Esta función solo puede ser utilizado por los admins del Grupo.')
    if (from == m.chat) {
       if (!isBotAdmin) return global.dfail('botAdmin', m, conn)
    }

@@ -264,6 +264,8 @@ export async function handler(chatUpdate) {
                     chat.delete = true
                 if (!('antiLink' in chat))
                     chat.antiLink = false
+                if (!('antiRaid' in chat))
+                    chat.antiRaid = false
                 if (!('antiViewOnce' in chat))
                     chat.antiViewOnce = false
                 if (!('antiToxic' in chat))
@@ -273,16 +275,25 @@ export async function handler(chatUpdate) {
             } else
                 db.data.chats[m.chat] = {
                     isBanned: false,
+                    
+                    
                     welcome: false,
                     detect: false,
+                    
+                    
                     sWelcome: '',
                     sBye: '',
                     sPromote: '',
                     sDemote: '',
                     delete: true,
+                    
+                    
                     antiLink: false,
+                    antiRaid: false,
                     antiViewOnce: false,
                     antiToxic: true,
+                    
+                    
                     expired: 0,
                 }
             let setting = db.data.settings[this.user.jid]

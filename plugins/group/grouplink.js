@@ -1,3 +1,4 @@
+import { areJidsSameUser } from '@adiwajshing/baileys'
 import moment from 'moment-timezone'
 import fetch from 'node-fetch'
 
@@ -12,10 +13,9 @@ let handler = async (m, { conn, args, text, usedPrefix, command, isBotAdmin }) =
       await conn.sendList(m.chat, null, `*Lista de Grupos. 🍟*\n\n	◦  *Total* : ${groups.length}`, null, 'Tap!', [['GRUPOS', rows]], m)
       return !0
    }
-   
    let groupMetadata = await conn.groupMetadata(from)
-   let isAdm = groupMetadata.participants.filter(v => v.admin).find((v) => v.id === conn.user.id)?.id
-   if (!isAdm) return m.reply('No soy admin de ese Grupo.')
+   let me = groupMetadata.participants.find(user => areJidsSameUser(user.id, conn.user.id))
+   if (!me.admin) return m.reply('No soy admin de ese Grupo.')
    let name = (await conn.groupMetadata(from)).subject
    let link = 'https://chat.whatsapp.com/' + await conn.groupInviteCode(from)
    let pp = await conn.profilePictureUrl(from, 'image').catch(_ => global.imgbot.noprofileurl)

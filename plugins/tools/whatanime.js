@@ -14,7 +14,8 @@ let handler = async (m, { conn }) => {
       },
       body: JSON.stringify({ image: anime }),
    })
-   if (!response.ok) return m.reply('Anime no Encontrado.')
+   console.log(response)
+   if (!response.ok) return m.reply('Anime no Encontrado.').then(_ => m.react('✖️'))
    let result = await response.json()
    let { is_adult, title, title_chinese, title_romaji, episode, season, similarity, filename, at, tokenthumb, anilist_id } = result.docs[0]
    console.log(result)

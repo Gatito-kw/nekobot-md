@@ -11,14 +11,14 @@ let handler = async (m, { conn }) => {
    let url = await uploadImage(img)
    let res = await fetch(`https://api.trace.moe/search?anilistInfo&url=${url}`)
    let json = await res.json()
-   return console.log(json.result[0])
-   let link = `https://media.trace.moe/video/${anilist_id}/${encodeURIComponent(filename)}?t=${at}&token=${tokenthumb}`
+   let result = json.result[0]
    let txt = `*乂 What - Anime*\n\n`
-      txt += `	◦  *Titulo* : ${title}\n`
-      txt += `	◦  *Similitud* : ${(similarity * 100).toFixed(1)}%\n`
-      txt += `	◦  *Episodio* : ${episode.toString()}\n`
-      txt += `	◦  *Ecchi* : ${is_adult ? 'Si' : 'No'}\n`
-   await conn.sendFile(m.chat, link, 'srcanime.mp4', txt, m)
+      txt += `	◦  *Titulo* : ${result.anilist.title.romaji}\n`
+      txt += `	◦  *Id* : ${result.anilist.id}\n`
+      txt += `	◦  *Similitud* : ${(result.similarity * 100).toFixed(1)}%\n`
+      txt += `	◦  *Episodio* : ${similarity.episode.toString() || '×'}\n`
+      txt += `	◦  *Ecchi* : ${result.anilist.isAdult ? 'Si' : 'No'}\n`
+   await conn.sendFile(m.chat, result.video, result.filename, txt, m)
    await m.react('✅')
 }
 

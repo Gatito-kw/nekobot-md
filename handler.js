@@ -633,15 +633,6 @@ export async function participantsUpdate({ id, participants, action }) {
             }
          }
          break
-         case 'promote':
-            text = (chat.sPromote || global.msgconfig.spromote || '@user ```is now Admin```')
-         case 'demote':
-            if (!text)
-               text = (chat.sDemote || global.msgconfig.sdemote || '@user ```is no longer Admin```')
-            text = text.replace('@user', '@' + participants[0].split('@')[0])
-            if (chat.detect)
-               this.sendMessage(id, { text, mentions: this.parseMention(text) })
-            break
     }
 }
 

@@ -1,13 +1,13 @@
 import fetch from 'node-fetch'
 import fs from 'fs'
 
-let handler = async (m, { conn, args, text }) => {
+let handler = async (m, { conn, args, text, usedPrefix, command }) => {
    let from = text.endsWith('@g.us') ? text : m.chat
    if (args[0] == '--list') {
       let groups = Object.entries(await conn.groupFetchAllParticipating()).slice(0).map(entry => entry[1])
       let rows = []
       groups.map(x => {
-         rows.push([x.subject, `${usedPrefix}grouplink ${x.id}`, `[ Usuarios: ${x.participants.length} | Creación : ${moment(x.creation * 1000).format('DD/MM/YY - HH:mm:ss')} ]`])
+         rows.push([x.subject, `${usedPrefix + command} ${x.id}`, `[ Usuarios: ${x.participants.length} | Creación : ${moment(x.creation * 1000).format('DD/MM/YY - HH:mm:ss')} ]`])
       })
       await conn.sendList(m.chat, null, `*Lista de Grupos. 🍟*\n\n	◦  *Total* : ${groups.length}`, null, 'Tap!', [['GRUPOS', rows]], m)
       return !0

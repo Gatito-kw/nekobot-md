@@ -3,8 +3,6 @@ import fetch from 'node-fetch'
 let handler = async (m, { conn, args }) => {
    let res = await fetch('https://api.github.com/repos/gatito-kw/nekobot-md')
    let json = await res.json()
-   let res = await fetch('https://linkpoi.ga/api.php?url=' + args[0])
-   let json = await res.json()
    let txt = `*乂 Bot - Script*\n\n`
       txt = `	◦  *Name* : ${json.name}\n`
       txt = `	◦  *Forks* : ${json.forks_count}\n`

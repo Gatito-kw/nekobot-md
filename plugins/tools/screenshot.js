@@ -5,7 +5,7 @@ let handler = async (m, { conn, args }) => {
    if (!isURL(args[0])) return m.reply('Ingresa una url Válida.')
    let res = await fetch('https://api.popcat.xyz/screenshot?url=' + args[0])
    let img = await res.buffer()
-   await m.reply(img)
+   await conn.sendFile(m.chat, img, 'Screenshot.jpg', `*Screenshot Web. 🍟*\n\n${args[0]}`, m)
 }
 
 handler.help = ['screenshot']

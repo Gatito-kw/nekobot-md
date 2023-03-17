@@ -3,8 +3,8 @@ import fetch from 'node-fetch'
 let handler = async (m, { conn, args }) => {
    let res = await fetch('https://api.github.com/repos/gatito-kw/nekobot-md')
    let json = await res.json()
-   let txt = `*乂 Bot - Script*\n\n`
-      txt = `	◦  *Name* : ${json.name}\n`
+   let txt = `*乂  B O T  -  S C R I P T\n\n`
+      txt = `	◦  *Nombre* : ${json.name}\n`
       txt = `	◦  *Forks* : ${json.forks_count}\n`
       txt = `	◦  *Stars* : ${json.stargazers_count}\n`
       txt = `	◦  *Issues* : ${json.open_issues_count}\n`

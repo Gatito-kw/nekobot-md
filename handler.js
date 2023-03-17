@@ -264,6 +264,8 @@ export async function handler(chatUpdate) {
                     chat.delete = true
                 if (!('antiLink' in chat))
                     chat.antiLink = false
+                if (!('antiTraba' in chat))
+                    chat.antiTraba = false
                 if (!('antiRaid' in chat))
                     chat.antiRaid = false
                 if (!('antiViewOnce' in chat))
@@ -289,6 +291,7 @@ export async function handler(chatUpdate) {
                     
                     
                     antiLink: false,
+                    antiTraba: false,
                     antiRaid: false,
                     antiViewOnce: false,
                     antiToxic: true,
@@ -598,9 +601,6 @@ export async function handler(chatUpdate) {
         } catch (e) {
             console.log(m, m.quoted, e)
         }
-        if (db.data.settings[this.user.jid].autoRead)
-            await this.readMessages([m.key])
-
     }
 }
 

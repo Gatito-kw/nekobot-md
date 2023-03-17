@@ -10,7 +10,9 @@ let handler = async (m, { conn, args }) => {
       txt += `	◦  *Visitas* : ${json.watchers_count}\n`
       txt += `	◦  *Peso* : ${(json.size / 1024).toFixed(2)} MB\n`
       txt += `	◦  *Actualizado* : ${moment(json.updated_at).format('DD/MM/YY - HH:mm:ss')}\n\n`
-      txt += `	${json.forks_count} Forks · ${json.stargazers_count} Stars · ${json.open_issues_count} Issues\n\n`
+      txt += `	◦  *Total Forks* : ${json.forks_count}\n`
+      txt += `	◦  *Total Stars* : ${json.stargazers_count}\n`
+      txt += `	◦  *Total Issues* : ${json.open_issues_count}\n\n`
       txt += global.textbot.footer
    await conn.sendUrl(m.chat, txt, m, {
       externalAdReply: {

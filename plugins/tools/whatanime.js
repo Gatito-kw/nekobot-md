@@ -12,7 +12,7 @@ let handler = async (m, { conn }) => {
    let res = await fetch(`https://api.trace.moe/search?anilistInfo&url=${url}`)
    let json = await res.json()
    let result = json.result[0]
-   let txt = `*乂 What - Anime*\n\n`
+   let txt = `*乂  W H A T  -  A N I M E*\n\n`
       txt += `	◦  *Titulo* : ${result.anilist.title.romaji}\n`
       txt += `	◦  *Id* : ${result.anilist.id}\n`
       txt += `	◦  *Similitud* : ${(result.similarity * 100).toFixed(1)}%\n`

@@ -314,7 +314,7 @@ export async function handler(chatUpdate) {
             antiLink: false,
             antiFake: false,
             antiTraba: false,
-            antiViewonce: false,
+            antiViewOnce: false,
             antiToxic: false,
          }
          let setting = db.data.settings[this.user.jid]

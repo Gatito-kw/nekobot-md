@@ -1,16 +1,16 @@
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, args }) => {
-   if (!args[0]) return m.reply('Ingresa una Url.')
+   if (!args[0]) return m.reply('Ingresa un Url.')
    if (!isURL(args[0])) return m.reply('Ingresa una url Válida.')
-   let res = await fetch('https://linkpoi.ga/api.php?url=' + args[0])
-   let json = await res.json()
-   await m.reply(json.shorturl.replace('\/','/'))
+   let res = await fetch('https://api.popcat.xyz/screenshot?url=' + args[0])
+   let img = await res.buffer()
+   await m.reply(img)
 }
 
-handler.help = ['linkpoi']
+handler.help = ['screenshot']
 handler.tags = ['tool']
-handler.command = ['linkpoi']
+handler.command = ['screenshot']
 
 export default handler
 

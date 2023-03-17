@@ -5,7 +5,7 @@ export async function before(m, { conn, isAdmin, isBotAdmin }) {
       return !0
    if (!m.isGroup)
       return !1
-   let chat = db.data.chats[m.sender]
+   let chat = db.data.chats[m.chat]
    if (chat.antiTraba && isBotAdmin) {
       if (m.text.length > 20000) {
          await this.groupParticipantsUpdate(m.chat, [m.sender], 'remove')

@@ -21,587 +21,591 @@ const isNumber = x => typeof x === 'number' && !isNaN(x)
  * @param {import('@adiwajshing/baileys').BaileysEventMap<unknown>['messages.upsert']} chatUpdate
  */
 export async function handler(chatUpdate) {
-    this.msgqueque = this.msgqueque || new Queque()
-    if (!chatUpdate)
-        return
-    let m = chatUpdate.messages[chatUpdate.messages.length - 1]
-    if (!m)
-        return
-    if (db.data == null)
-        await loadDatabase()
-    try {
-        m = smsg(this, m) || m
-        if (!m)
-            return
-        m.exp = 0
-        m.limit = false
-        try {
-            // TODO: use loop to insert data instead of this
-            let user = db.data.users[m.sender]
-            if (typeof user !== 'object')
-                db.data.users[m.sender] = {}
-            if (user) {
-                if (!isNumber(user.exp))
-                    user.exp = 0
-                if (!isNumber(user.limit))
-                    user.limit = 10
-                if (!isNumber(user.lastclaim))
-                    user.lastclaim = 0
-                if (!('registered' in user))
-                    user.registered = false
-                if (!user.registered) {
-                    if (!('name' in user))
-                        user.name = m.name
-                    if (!isNumber(user.age))
-                        user.age = -1
-                    if (!isNumber(user.regTime))
-                        user.regTime = -1
-                }
-                if (!isNumber(user.afk))
-                    user.afk = -1
-                if (!('afkReason' in user))
-                    user.afkReason = ''
-                if (!('banned' in user))
-                    user.banned = false
-                if (!isNumber(user.warn))
-                    user.warn = 0
-                if (!isNumber(user.level))
-                    user.level = 0
-                if (!('role' in user))
-                    user.role = 'Beginner'
-                if (!('autolevelup' in user))
-                    user.autolevelup = true
-
-                if (!isNumber(user.money))
-                    user.money = 0
-                if (!isNumber(user.health))
-                    user.health = 100
-                if (!isNumber(user.limit))
-                    user.limit = 0
-                if (!isNumber(user.potion))
-                    user.potion = 0
-                if (!isNumber(user.trash))
-                    user.trash = 0
-                if (!isNumber(user.wood))
-                    user.wood = 0
-                if (!isNumber(user.rock))
-                    user.rock = 0
-                if (!isNumber(user.string))
-                    user.string = 0
-                if (!isNumber(user.petFood))
-                    user.petFood = 0
-
-                if (!isNumber(user.emerald))
-                    user.emerald = 0
-                if (!isNumber(user.diamond))
-                    user.diamond = 0
-                if (!isNumber(user.gold))
-                    user.gold = 0
-                if (!isNumber(user.iron))
-                    user.iron = 0
-
-                if (!isNumber(user.common))
-                    user.common = 0
-                if (!isNumber(user.uncommon))
-                    user.uncommon = 0
-                if (!isNumber(user.mythic))
-                    user.mythic = 0
-                if (!isNumber(user.legendary))
-                    user.legendary = 0
-                if (!isNumber(user.pet))
-                    user.pet = 0
-
-                if (!isNumber(user.horse))
-                    user.horse = 0
-                if (!isNumber(user.horseexp))
-                    user.horseexp = 0
-                if (!isNumber(user.cat))
-                    user.cat = 0
-                if (!isNumber(user.catexp))
-                    user.catexp = 0
-                if (!isNumber(user.fox))
-                    user.fox = 0
-                if (!isNumber(user.foxhexp))
-                    user.foxexp = 0
-                if (!isNumber(user.dog))
-                    user.dog = 0
-                if (!isNumber(user.dogexp))
-                    user.dogexp = 0
-
-                if (!isNumber(user.horselastfeed))
-                    user.horselastfeed = 0
-                if (!isNumber(user.catlastfeed))
-                    user.catlastfeed = 0
-                if (!isNumber(user.foxlastfeed))
-                    user.foxlastfeed = 0
-                if (!isNumber(user.doglastfeed))
-                    user.doglastfeed = 0
-
-                if (!isNumber(user.armor))
-                    user.armor = 0
-                if (!isNumber(user.armordurability))
-                    user.armordurability = 0
-                if (!isNumber(user.sword))
-                    user.sword = 0
-                if (!isNumber(user.sworddurability))
-                    user.sworddurability = 0
-                if (!isNumber(user.pickaxe))
-                    user.pickaxe = 0
-                if (!isNumber(user.pickaxedurability))
-                    user.pickaxedurability = 0
-                if (!isNumber(user.fishingrod))
-                    user.fishingrod = 0
-                if (!isNumber(user.fishingroddurability))
-                    user.fishingroddurability = 0
-
-                if (!isNumber(user.lastclaim))
-                    user.lastclaim = 0
-                if (!isNumber(user.lastadventure))
-                    user.lastadventure = 0
-                if (!isNumber(user.lastfishing))
-                    user.lastfishing = 0
-                if (!isNumber(user.lastdungeon))
-                    user.lastdungeon = 0
-                if (!isNumber(user.lastduel))
-                    user.lastduel = 0
-                if (!isNumber(user.lastmining))
-                    user.lastmining = 0
-                if (!isNumber(user.lasthunt))
-                    user.lasthunt = 0
-                if (!isNumber(user.lastweekly))
-                    user.lastweekly = 0
-                if (!isNumber(user.lastmonthly))
-                    user.lastmonthly = 0
-            } else
-                db.data.users[m.sender] = {
-                    exp: 0,
-                    limit: 10,
-                    lastclaim: 0,
-                    registered: false,
-                    name: m.name,
-                    age: -1,
-                    regTime: -1,
-                    afk: -1,
-                    afkReason: '',
-                    banned: false,
-                    warn: 0,
-                    level: 0,
-                    role: 'Beginner',
-                    autolevelup: true,
-
-                    money: 0,
-                    health: 100,
-                    limit: 100,
-                    potion: 10,
-                    trash: 0,
-                    wood: 0,
-                    rock: 0,
-                    string: 0,
-
-                    emerald: 0,
-                    diamond: 0,
-                    gold: 0,
-                    iron: 0,
-
-                    common: 0,
-                    uncommon: 0,
-                    mythic: 0,
-                    legendary: 0,
-                    pet: 0,
-
-                    horse: 0,
-                    horseexp: 0,
-                    cat: 0,
-                    catngexp: 0,
-                    fox: 0,
-                    foxexp: 0,
-                    dog: 0,
-                    dogexp: 0,
-
-                    horselastfeed: 0,
-                    catlastfeed: 0,
-                    foxlastfeed: 0,
-                    doglastfeed: 0,
-
-                    armor: 0,
-                    armordurability: 0,
-                    sword: 0,
-                    sworddurability: 0,
-                    pickaxe: 0,
-                    pickaxedurability: 0,
-                    fishingrod: 0,
-                    fishingroddurability: 0,
-
-                    lastclaim: 0,
-                    lastadventure: 0,
-                    lastfishing: 0,
-                    lastdungeon: 0,
-                    lastduel: 0,
-                    lastmining: 0,
-                    lasthunt: 0,
-                    lastweekly: 0,
-                    lastmonthly: 0,
-                }
-            let chat = db.data.chats[m.chat]
-            if (typeof chat !== 'object')
-                db.data.chats[m.chat] = {}
-            if (chat) {
-                if (!('isBanned' in chat))
-                    chat.isBanned = false
-                if (!('welcome' in chat))
-                    chat.welcome = false
-                if (!('detect' in chat))
-                    chat.detect = false
-                if (!('sWelcome' in chat))
-                    chat.sWelcome = ''
-                if (!('sBye' in chat))
-                    chat.sBye = ''
-                if (!('sPromote' in chat))
-                    chat.sPromote = ''
-                if (!('sDemote' in chat))
-                    chat.sDemote = ''
-                if (!('delete' in chat))
-                    chat.delete = true
-                if (!('antiLink' in chat))
-                    chat.antiLink = false
-                if (!('antiTraba' in chat))
-                    chat.antiTraba = false
-                if (!('antiRaid' in chat))
-                    chat.antiRaid = false
-                if (!('antiViewOnce' in chat))
-                    chat.antiViewOnce = false
-                if (!('antiToxic' in chat))
-                    chat.antiToxic = false
-                if (!isNumber(chat.expired))
-                    chat.expired = 0
-            } else
-                db.data.chats[m.chat] = {
-                    isBanned: false,
-                    
-                    
-                    welcome: false,
-                    detect: false,
-                    
-                    
-                    sWelcome: '',
-                    sBye: '',
-                    sPromote: '',
-                    sDemote: '',
-                    delete: true,
-                    
-                    
-                    antiLink: false,
-                    antiTraba: false,
-                    antiRaid: false,
-                    antiViewOnce: false,
-                    antiToxic: true,
-                    
-                    
-                    expired: 0,
-                }
-            let setting = db.data.settings[this.user.jid]
-            if (typeof setting !== 'object') db.data.settings[this.user.jid] = {}
-            if (setting) {
-               if (!'isBanned' in setting)
-                  setting.isBanned = true
-               if (!'autoRead' in setting)
-                  setting.autoRead = false
-            } else db.data.settings[this.user.jid] = {
-               isBanned: false,
-               autoRead: false,
+   this.msgqueque = this.msgqueque || new Queque()
+   if (!chatUpdate)
+      return
+   let m = chatUpdate.messages[chatUpdate.messages.length - 1]
+   if (!m)
+      return
+   if (db.data == null)
+      await loadDatabase()
+   try {
+      m = smsg(this, m) || m
+      if (!m)
+         return
+      m.exp = 0
+      m.limit = false
+      try {
+         let user = db.data.users[m.sender]
+         if (typeof user !== 'object')
+            db.data.users[m.sender] = {}
+         if (user) {
+            if (!isNumber(user.exp))
+               user.exp = 0
+            if (!isNumber(user.limit))
+               user.limit = 10
+            if (!isNumber(user.lastclaim))
+               user.lastclaim = 0
+            if (!('registered' in user))
+               user.registered = false
+            if (!user.registered) {
+               if (!('name' in user))
+                  user.name = m.name
+               if (!isNumber(user.age))
+                  user.age = -1
+               if (!isNumber(user.regTime))
+                  user.regTime = -1
             }
-        } catch (e) {
-            console.error(e)
-        }
-        if (opts['nyimak'])
-            return
-        if (!m.fromMe && opts['self'])
-            return
-        if (opts['pconly'] && m.chat.endsWith('g.us'))
-            return
-        if (opts['gconly'] && !m.chat.endsWith('g.us'))
-            return
-        if (opts['swonly'] && m.chat !== 'status@broadcast')
-            return
-        if (typeof m.text !== 'string')
-            m.text = ''
+            if (!isNumber(user.afk))
+               user.afk = -1
+            if (!('afkReason' in user))
+               user.afkReason = ''
+            if (!('isBanned' in user))
+               user.isBanned = false
+            if (!isNumber(user.warn))
+               user.warn = 0
+            if (!isNumber(user.level))
+               user.level = 0
+            if (!('role' in user))
+               user.role = 'Beginner'
+            if (!('autolevelup' in user))
+               user.autolevelup = true
 
-        const isROwner = [this.decodeJid(this.user.id), ...global.owner.map(([number]) => number)].map(v => v?.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-        const isOwner = isROwner || m.fromMe
-        const isMods = isOwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-        const isPrems = isROwner || global.prems.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+            if (!isNumber(user.money))
+               user.money = 0
+            if (!isNumber(user.health))
+               user.health = 100
+            if (!isNumber(user.limit))
+               user.limit = 0
+            if (!isNumber(user.potion))
+               user.potion = 0
+            if (!isNumber(user.trash))
+               user.trash = 0
+            if (!isNumber(user.wood))
+               user.wood = 0
+            if (!isNumber(user.rock))
+               user.rock = 0
+            if (!isNumber(user.string))
+               user.string = 0
+            if (!isNumber(user.petFood))
+               user.petFood = 0
 
-        if (opts['queque'] && m.text && !m.fromMe && !(isMods || isPrems)) {
-            const id = m.id
-            this.msgqueque.add(id)
-            await this.msgqueque.waitQueue(id)
-        }
+            if (!isNumber(user.emerald))
+               user.emerald = 0
+            if (!isNumber(user.diamond))
+               user.diamond = 0
+            if (!isNumber(user.gold))
+               user.gold = 0
+            if (!isNumber(user.iron))
+               user.iron = 0
 
-        if (m.isBaileys)
-            return
-        m.exp += Math.ceil(Math.random() * 10)
+            if (!isNumber(user.common))
+               user.common = 0
+            if (!isNumber(user.uncommon))
+               user.uncommon = 0
+            if (!isNumber(user.mythic))
+               user.mythic = 0
+            if (!isNumber(user.legendary))
+               user.legendary = 0
+            if (!isNumber(user.pet))
+               user.pet = 0
 
-        let usedPrefix
-        let _user = db.data?.users?.[m.sender]
+            if (!isNumber(user.horse))
+               user.horse = 0
+            if (!isNumber(user.horseexp))
+               user.horseexp = 0
+            if (!isNumber(user.cat))
+               user.cat = 0
+            if (!isNumber(user.catexp))
+               user.catexp = 0
+            if (!isNumber(user.fox))
+               user.fox = 0
+            if (!isNumber(user.foxhexp))
+               user.foxexp = 0
+            if (!isNumber(user.dog))
+               user.dog = 0
+            if (!isNumber(user.dogexp))
+               user.dogexp = 0
 
-        const groupMetadata = (m.isGroup ? await Connection.store.fetchGroupMetadata(m.chat, this.groupMetadata) : {}) || {}
-        const participants = (m.isGroup ? groupMetadata.participants : []) || []
-        const user = (m.isGroup ? participants.find(u => this.decodeJid(u.id) === m.sender) : {}) || {} // User Data
-        const bot = (m.isGroup ? participants.find(u => this.decodeJid(u.id) == this.user.jid) : {}) || {} // Your Data
-        const isRAdmin = user?.admin == 'superadmin' || false
-        const isAdmin = isRAdmin || user?.admin == 'admin' || false // Is User Admin?
-        const isBotAdmin = bot?.admin || false // Are you Admin?
+            if (!isNumber(user.horselastfeed))
+               user.horselastfeed = 0
+            if (!isNumber(user.catlastfeed))
+               user.catlastfeed = 0
+            if (!isNumber(user.foxlastfeed))
+               user.foxlastfeed = 0
+            if (!isNumber(user.doglastfeed))
+               user.doglastfeed = 0
 
-        const ___dirname = path.join(path.dirname(fileURLToPath(import.meta.url)), './plugins')
-        for (let name in plugins) {
-            let plugin = plugins[name]
-            if (!plugin)
-                continue
-            if (plugin.disabled)
-                continue
-            const __filename = join(___dirname, name)
-            if (typeof plugin.all === 'function') {
-                try {
-                    await plugin.all.call(this, m, {
-                        chatUpdate,
-                        __dirname: ___dirname,
-                        __filename
-                    })
-                } catch (e) {
-                    // if (typeof e === 'string') continue
-                    console.error(e)
-                    for (let [jid] of global.owner.filter(([number, _, isDeveloper]) => isDeveloper && number)) {
+            if (!isNumber(user.armor))
+               user.armor = 0
+            if (!isNumber(user.armordurability))
+               user.armordurability = 0
+            if (!isNumber(user.sword))
+               user.sword = 0
+            if (!isNumber(user.sworddurability))
+               user.sworddurability = 0
+            if (!isNumber(user.pickaxe))
+               user.pickaxe = 0
+            if (!isNumber(user.pickaxedurability))
+               user.pickaxedurability = 0
+            if (!isNumber(user.fishingrod))
+               user.fishingrod = 0
+            if (!isNumber(user.fishingroddurability))
+               user.fishingroddurability = 0
+
+            if (!isNumber(user.lastclaim))
+               user.lastclaim = 0
+            if (!isNumber(user.lastadventure))
+               user.lastadventure = 0
+            if (!isNumber(user.lastfishing))
+               user.lastfishing = 0
+            if (!isNumber(user.lastdungeon))
+               user.lastdungeon = 0
+            if (!isNumber(user.lastduel))
+               user.lastduel = 0
+            if (!isNumber(user.lastmining))
+               user.lastmining = 0
+            if (!isNumber(user.lasthunt))
+               user.lasthunt = 0
+            if (!isNumber(user.lastweekly))
+               user.lastweekly = 0
+            if (!isNumber(user.lastmonthly))
+               user.lastmonthly = 0
+         } else db.data.users[m.sender] = {
+            exp: 0,
+            limit: 10,
+            lastclaim: 0,
+            registered: false,
+            name: m.name,
+            age: -1,
+            regTime: -1,
+            afk: -1,
+            afkReason: '',
+            isBanned: false,
+            warn: 0,
+            level: 0,
+            role: 'Beginner',
+            autolevelup: true,
+
+            money: 0,
+            health: 100,
+            limit: 100,
+            potion: 10,
+            trash: 0,
+            wood: 0,
+            rock: 0,
+            string: 0,
+
+            emerald: 0,
+            diamond: 0,
+            gold: 0,
+            iron: 0,
+
+            common: 0,
+            uncommon: 0,
+            mythic: 0,
+            legendary: 0,
+            pet: 0,
+
+            horse: 0,
+            horseexp: 0,
+            cat: 0,
+            catngexp: 0,
+            fox: 0,
+            foxexp: 0,
+            dog: 0,
+            dogexp: 0,
+
+            horselastfeed: 0,
+            catlastfeed: 0,
+            foxlastfeed: 0,
+            doglastfeed: 0,
+
+            armor: 0,
+            armordurability: 0,
+            sword: 0,
+            sworddurability: 0,
+            pickaxe: 0,
+            pickaxedurability: 0,
+            fishingrod: 0,
+            fishingroddurability: 0,
+
+            lastclaim: 0,
+            lastadventure: 0,
+            lastfishing: 0,
+            lastdungeon: 0,
+            lastduel: 0,
+            lastmining: 0,
+            lasthunt: 0,
+            lastweekly: 0,
+            lastmonthly: 0,
+         }
+         let chat = db.data.chats[m.chat]
+         if (typeof chat !== 'object')
+            db.data.chats[m.chat] = {}
+         if (chat) {
+            if (!('isBanned' in chat))
+               chat.isBanned = false
+            if (!('isNsfw' in chat))
+               chat.isNsfw = false
+            
+            if (!('welcome' in chat))
+               chat.welcome = false
+            if (!('bye' in chat))
+               chat.bye = false
+            if (!('simsimi' in chat))
+               chat.simsimi = false
+            if (!('detect' in chat))
+               chat.detect = false
+            if (!isNumber(chat.expired))
+               chat.expired = 0
+            
+            if (!('sWelcome' in chat))
+               chat.sWelcome = false
+            if (!('sBye' in chat))
+               chat.sBye = false
+            if (!('sPromote' in chat))
+               chat.sPromote = false
+            if (!('sDemote' in chat))
+               chat.sDemote = false
+            
+            if (!('autoSticker' in chat))
+               chat.autoSticker = false
+            if (!('autoDownload' in chat))
+               chat.autoDownload = false
+            
+            if (!('antiDelete' in chat))
+               chat.antiDelete = false
+            if (!('antiRaid' in chat))
+               chat.antiRaid = false
+            if (!('antiSpam' in chat))
+               chat.antiSpam = false
+            if (!('antiLink' in chat))
+               chat.antiLink = false
+            if (!('antiFake' in chat))
+               chat.antiFake = false
+            if (!('antiTraba' in chat))
+               chat.antiTraba = false
+            if (!('antiViewonce' in chat))
+               chat.antiViewonce = false
+            if (!('antiToxic' in chat))
+               chat.antiToxic = false
+         } else db.data.chats[m.chat] = {
+            isBanned: false,
+            isNsfw: false,
+            
+            welcome: false,
+            bye: false,
+            simsimi: false,
+            detect: false,
+            expired: 0, 
+            
+            sWelcome: '',
+            sBye: '',
+            sPromote: '',
+            sDemote: '',
+            
+            autoSticker: false,
+            autoDownload: false,
+            
+            antiDelete: false,
+            antiRaid: false,
+            antiSpam: false,
+            antiLink: false,
+            antiFake: false,
+            antiTraba: false,
+            antiViewonce: false,
+            antiToxic: false,
+         }
+         let setting = db.data.settings[this.user.jid]
+         if (typeof setting !== 'object') db.data.settings[this.user.jid] = {}
+         if (setting) {
+            if (!'isBanned' in setting)
+               setting.isBanned = true
+            if (!'autoRead' in setting)
+               setting.autoRead = false
+         } else db.data.settings[this.user.jid] = {
+            isBanned: false,
+            autoRead: false,
+         }
+      } catch (e) {
+         console.error(e)
+      }
+      if (opts['nyimak'])
+         return
+      if (typeof m.text !== 'string')
+         m.text = ''
+
+      const isROwner = [this.decodeJid(this.user.id), ...global.owner.map(([number]) => number)].map(v => v?.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+      const isOwner = isROwner || m.fromMe
+      const isMods = isOwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+      const isPrems = isROwner || global.prems.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+
+      if (opts['queque'] && m.text && !m.fromMe && !(isMods || isPrems)) {
+         const id = m.id
+         this.msgqueque.add(id)
+         await this.msgqueque.waitQueue(id)
+      }
+
+      if (m.isBaileys)
+         return
+      m.exp += Math.ceil(Math.random() * 10)
+
+      let usedPrefix
+      let _user = db.data?.users?.[m.sender]
+
+      const groupMetadata = (m.isGroup ? await Connection.store.fetchGroupMetadata(m.chat, this.groupMetadata) : {}) || {}
+      const participants = (m.isGroup ? groupMetadata.participants : []) || []
+      const user = (m.isGroup ? participants.find(u => this.decodeJid(u.id) === m.sender) : {}) || {} // User Data
+      const bot = (m.isGroup ? participants.find(u => this.decodeJid(u.id) == this.user.jid) : {}) || {} // Your Data
+      const isRAdmin = user?.admin == 'superadmin' || false
+      const isAdmin = isRAdmin || user?.admin == 'admin' || false // Is User Admin?
+      const isBotAdmin = bot?.admin || false // Are you Admin?
+
+      const ___dirname = path.join(path.dirname(fileURLToPath(import.meta.url)), './plugins')
+      for (let name in plugins) {
+         let plugin = plugins[name]
+         if (!plugin)
+            continue
+         if (plugin.disabled)
+            continue
+         const __filename = join(___dirname, name)
+         if (typeof plugin.all === 'function') {
+            try {
+               await plugin.all.call(this, m, {
+                  chatUpdate,
+                     __dirname: ___dirname,
+                     __filename
+                  })
+            } catch (e) {
+               // if (typeof e === 'string') continue
+               console.error(e)
+               for (let [jid] of global.owner.filter(([number, _, isDeveloper]) => isDeveloper && number)) {
+                  let data = (await this.onWhatsApp(jid))[0] || {}
+                  if (data.exists)
+                     m.reply(`*REPORTE  DE  ERROR*\n\n	◦  *Usuario* : @${m.sender.split`@`[0]}\n	◦  *Cmd* : ${m.text}\n	◦  *Plugin* : ${name}`, data.jid, { mentions: [m.sender] })
+               }
+            }
+         }
+         const str2Regex = str => str.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&')
+         let _prefix = plugin.customPrefix ? plugin.customPrefix : this.prefix ? this.prefix : global.prefix
+         let match = (_prefix instanceof RegExp ? // RegExp Mode?
+            [[_prefix.exec(m.text), _prefix]] :
+            Array.isArray(_prefix) ? // Array?
+               _prefix.map(p => {
+                  let re = p instanceof RegExp ? // RegExp in Array?
+                  p :
+                  new RegExp(str2Regex(p))
+                  return [re.exec(m.text), re]
+               }) :
+               typeof _prefix === 'string' ? // String?
+                  [[new RegExp(str2Regex(_prefix)).exec(m.text), new RegExp(str2Regex(_prefix))]] :
+                  [[[], new RegExp]]
+         ).find(p => p[1])
+         if (typeof plugin.before === 'function') {
+            if (await plugin.before.call(this, m, {
+               match,
+               conn: this,
+               participants,
+               groupMetadata,
+               user,
+               bot,
+               isROwner,
+               isOwner,
+               isRAdmin,
+               isAdmin,
+               isBotAdmin,
+               isPrems,
+               chatUpdate,
+               __dirname: ___dirname,
+               __filename
+            }))
+               continue
+         }
+         if (typeof plugin !== 'function')
+            continue
+         if ((usedPrefix = (match[0] || '')[0])) {
+            let noPrefix = m.text.replace(usedPrefix, '')
+            let [command, ...args] = noPrefix.trim().split` `.filter(v => v)
+            args = args || []
+            let _args = noPrefix.trim().split` `.slice(1)
+            let text = _args.join` `
+            command = (command || '').toLowerCase()
+            let fail = plugin.fail || global.dfail // When failed
+            let isAccept = plugin.command instanceof RegExp ? // RegExp Mode?
+               plugin.command.test(command) :
+               Array.isArray(plugin.command) ? // Array?
+                  plugin.command.some(cmd => cmd instanceof RegExp ? // RegExp in Array?
+                     cmd.test(command) :
+                     cmd === command
+                  ) :
+                  typeof plugin.command === 'string' ? // String?
+                     plugin.command === command : false
+
+            if (!isAccept)
+               continue
+            m.plugin = name
+            if (m.chat in db.data.chats || m.sender in db.data.users) {
+               let setting = db.data.settings[this.user.jid]
+               let chat = db.data.chats[m.chat]
+               let user = db.data.users[m.sender]
+               if (!isMods && setting?.isBanned)
+                  return
+               if (!isMods && chat?.isBanned)
+                  return
+               if (!isMods && user?.isBanned)
+                  return
+            }
+            if (plugin.rowner && plugin.owner && !(isROwner || isOwner)) { // Both Owner
+               fail('owner', m, this)
+                  continue
+            }
+            if (plugin.rowner && !isROwner) { // Real Owner
+               fail('rowner', m, this)
+                  continue
+            }
+            if (plugin.owner && !isOwner) { // Number Owner
+               fail('owner', m, this)
+                  continue
+            }
+            if (plugin.mods && !isMods) { // Moderator
+               fail('mods', m, this)
+                  continue
+            }
+            if (plugin.premium && !isPrems) { // Premium
+               fail('premium', m, this)
+                  continue
+            }
+            if (plugin.group && !m.isGroup) { // Group Only
+               fail('group', m, this)
+                  continue
+            } else if (plugin.botAdmin && !isBotAdmin) { // You Admin
+               fail('botAdmin', m, this)
+                  continue
+            } else if (plugin.admin && !isAdmin) { // User Admin
+               fail('admin', m, this)
+                  continue
+            }
+            if (plugin.private && m.isGroup) { // Private Chat Only
+               fail('private', m, this)
+                  continue
+            }
+            m.isCommand = true
+            let xp = 'exp' in plugin ? parseInt(plugin.exp) : 17
+            if (xp > 200)
+               m.reply('Ngecit -_-')
+            else
+               m.exp += xp
+            if (!isPrems && plugin.limit && db.data.users[m.sender].limit < plugin.limit * 1) {
+               m.reply(`*🚩 No tienes suficiente limites, puedes obtener mas escribiendo ${usedPrefix}buy limit*`)
+                  continue
+            }
+            let extra = {
+               match,
+               usedPrefix,
+               noPrefix,
+               _args,
+               args,
+               command,
+               text,
+               conn: this,
+               participants,
+               groupMetadata,
+               user,
+               bot,
+               isROwner,
+               isOwner,
+               isRAdmin,
+               isAdmin,
+               isBotAdmin,
+               isPrems,
+               chatUpdate,
+               __dirname: ___dirname,
+               __filename
+            }
+            try {
+               await plugin.call(this, m, extra)
+               if (!isPrems)
+                  m.limit = m.limit || plugin.limit || false
+            } catch (e) {
+               // Error occured
+               m.error = e
+               console.error(e)
+               if (e) {
+                  let text = format(e)
+                  for (let key of Object.values(global.APIKeys))
+                     text = text.replace(new RegExp(key, 'g'), '#HIDDEN#')
+                  if (e.name)
+                     for (let [jid] of global.owner.filter(([number, _, isDeveloper]) => isDeveloper && number)) {
                         let data = (await this.onWhatsApp(jid))[0] || {}
-                        if (data.exists)
-                            m.reply(`*Plugin:* ${name}\n*Sender:* ${m.sender}\n*Chat:* ${m.chat}\n*Command:* ${m.text}\n\n\`\`\`${format(e)}\`\`\``.trim(), data.jid)
-                    }
-                }
+                           if (data.exists)
+                              m.reply(`*REPORTE  DE  ERROR*\n\n	◦  *Usuario* : @${m.sender.split`@`[0]}\n	◦  *Cmd* : ${usedPrefix + command}\n	◦  *Plugin* : ${m.plugin}`, data.jid, { mentions: [m.sender] })
+                     }
+                  m.reply('*' + e.name + '* : ' + e.message).then(_=> plugin.react_error ? m.react('❌') : null)
+               }
+            } finally {
+               // m.reply(util.format(_user))
+               if (typeof plugin.after === 'function') {
+                  try {
+                     await plugin.after.call(this, m, extra)
+                  } catch (e) {
+                     console.error(e)
+                  }
+               }
+               if (m.limit)
+                  m.reply(`*-${m.limit} ${m.limit ? 'Limite' : 'Limites'}*`)
             }
-            if (!opts['restrict'])
-                if (plugin.tags && plugin.tags.includes('admin')) {
-                    // global.dfail('restrict', m, this)
-                    continue
-                }
-            const str2Regex = str => str.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&')
-            let _prefix = plugin.customPrefix ? plugin.customPrefix : this.prefix ? this.prefix : global.prefix
-            let match = (_prefix instanceof RegExp ? // RegExp Mode?
-                [[_prefix.exec(m.text), _prefix]] :
-                Array.isArray(_prefix) ? // Array?
-                    _prefix.map(p => {
-                        let re = p instanceof RegExp ? // RegExp in Array?
-                            p :
-                            new RegExp(str2Regex(p))
-                        return [re.exec(m.text), re]
-                    }) :
-                    typeof _prefix === 'string' ? // String?
-                        [[new RegExp(str2Regex(_prefix)).exec(m.text), new RegExp(str2Regex(_prefix))]] :
-                        [[[], new RegExp]]
-            ).find(p => p[1])
-            if (typeof plugin.before === 'function') {
-                if (await plugin.before.call(this, m, {
-                    match,
-                    conn: this,
-                    participants,
-                    groupMetadata,
-                    user,
-                    bot,
-                    isROwner,
-                    isOwner,
-                    isRAdmin,
-                    isAdmin,
-                    isBotAdmin,
-                    isPrems,
-                    chatUpdate,
-                    __dirname: ___dirname,
-                    __filename
-                }))
-                    continue
-            }
-            if (typeof plugin !== 'function')
-                continue
-            if ((usedPrefix = (match[0] || '')[0])) {
-                let noPrefix = m.text.replace(usedPrefix, '')
-                let [command, ...args] = noPrefix.trim().split` `.filter(v => v)
-                args = args || []
-                let _args = noPrefix.trim().split` `.slice(1)
-                let text = _args.join` `
-                command = (command || '').toLowerCase()
-                let fail = plugin.fail || global.dfail // When failed
-                let isAccept = plugin.command instanceof RegExp ? // RegExp Mode?
-                    plugin.command.test(command) :
-                    Array.isArray(plugin.command) ? // Array?
-                        plugin.command.some(cmd => cmd instanceof RegExp ? // RegExp in Array?
-                            cmd.test(command) :
-                            cmd === command
-                        ) :
-                        typeof plugin.command === 'string' ? // String?
-                            plugin.command === command :
-                            false
+            break
+         }
+      }
+   } catch (e) {
+      console.error(e)
+   } finally {
+      if (opts['queque'] && m.text) {
+         const id = m.id
+         this.msgqueque.unqueue(id)
+      }
+      //console.log(db.data.users[m.sender])
+      let user, stats = db.data.stats
+      if (m) {
+         if (m.sender && (user = db.data.users[m.sender])) {
+            user.exp += m.exp
+            user.limit -= m.limit * 1
+         }
 
-                if (!isAccept)
-                    continue
-                m.plugin = name
-                if (m.chat in db.data.chats || m.sender in db.data.users) {
-                    let setting = db.data.settings[this.user.jid]
-                    let chat = db.data.chats[m.chat]
-                    let user = db.data.users[m.sender]
-                    if (!isMods && setting?.isBanned)
-                        return
-                    if (!isMods && chat?.isBanned)
-                        return
-                }
-                if (plugin.rowner && plugin.owner && !(isROwner || isOwner)) { // Both Owner
-                    fail('owner', m, this)
-                    continue
-                }
-                if (plugin.rowner && !isROwner) { // Real Owner
-                    fail('rowner', m, this)
-                    continue
-                }
-                if (plugin.owner && !isOwner) { // Number Owner
-                    fail('owner', m, this)
-                    continue
-                }
-                if (plugin.mods && !isMods) { // Moderator
-                    fail('mods', m, this)
-                    continue
-                }
-                if (plugin.premium && !isPrems) { // Premium
-                    fail('premium', m, this)
-                    continue
-                }
-                if (plugin.group && !m.isGroup) { // Group Only
-                    fail('group', m, this)
-                    continue
-                } else if (plugin.botAdmin && !isBotAdmin) { // You Admin
-                    fail('botAdmin', m, this)
-                    continue
-                } else if (plugin.admin && !isAdmin) { // User Admin
-                    fail('admin', m, this)
-                    continue
-                }
-                if (plugin.private && m.isGroup) { // Private Chat Only
-                    fail('private', m, this)
-                    continue
-                }
-                m.isCommand = true
-                let xp = 'exp' in plugin ? parseInt(plugin.exp) : 17
-                if (xp > 200)
-                    m.reply('Ngecit -_-')
-                else
-                    m.exp += xp
-                if (!isPrems && plugin.limit && db.data.users[m.sender].limit < plugin.limit * 1) {
-                    m.reply(`*🚩 No tienes suficiente limites, puedes obtener mas escribiendo ${usedPrefix}buy limit*`)
-                    continue
-                }
-                let extra = {
-                    match,
-                    usedPrefix,
-                    noPrefix,
-                    _args,
-                    args,
-                    command,
-                    text,
-                    conn: this,
-                    participants,
-                    groupMetadata,
-                    user,
-                    bot,
-                    isROwner,
-                    isOwner,
-                    isRAdmin,
-                    isAdmin,
-                    isBotAdmin,
-                    isPrems,
-                    chatUpdate,
-                    __dirname: ___dirname,
-                    __filename
-                }
-                try {
-                    await plugin.call(this, m, extra)
-                    if (!isPrems)
-                        m.limit = m.limit || plugin.limit || false
-                } catch (e) {
-                    // Error occured
-                    m.error = e
-                    console.error(e)
-                    if (e) {
-                        let text = format(e)
-                        for (let key of Object.values(global.APIKeys))
-                            text = text.replace(new RegExp(key, 'g'), '#HIDDEN#')
-                        if (e.name)
-                            for (let [jid] of global.owner.filter(([number, _, isDeveloper]) => isDeveloper && number)) {
-                                let data = (await this.onWhatsApp(jid))[0] || {}
-                                if (data.exists)
-                                    m.reply(`*REPORTE  DE  ERROR*\n\n	◦  *Usuario* : @${m.sender.split`@`[0]}\n	◦  *Cmd* : ${usedPrefix + command}\n	◦  *Plugin* : ${m.plugin}`, data.jid, { mentions: [m.sender] })
-                            }
-                            m.reply('*' + e.name + '* : ' + e.message).then(_=> plugin.react_error ? m.react('❌') : null)
-                    }
-                } finally {
-                    // m.reply(util.format(_user))
-                    if (typeof plugin.after === 'function') {
-                        try {
-                            await plugin.after.call(this, m, extra)
-                        } catch (e) {
-                            console.error(e)
-                        }
-                    }
-                    if (m.limit)
-                        m.reply(`*-${m.limit} ${m.limit ? 'Limite' : 'Limites'}*`)
-                }
-                break
+         let stat
+         if (m.plugin) {
+            let now = +new Date
+            if (m.plugin in stats) {
+               stat = stats[m.plugin]
+               if (!isNumber(stat.total))
+                  stat.total = 1
+               if (!isNumber(stat.success))
+                  stat.success = m.error != null ? 0 : 1
+               if (!isNumber(stat.last))
+                  stat.last = now
+               if (!isNumber(stat.lastSuccess))
+                  stat.lastSuccess = m.error != null ? 0 : now
+            } else stat = stats[m.plugin] = {
+               total: 1,
+               success: m.error != null ? 0 : 1,
+               last: now,
+               lastSuccess: m.error != null ? 0 : now
             }
-        }
-    } catch (e) {
-        console.error(e)
-    } finally {
-        if (opts['queque'] && m.text) {
-            const id = m.id
-            this.msgqueque.unqueue(id)
-        }
-        //console.log(db.data.users[m.sender])
-        let user, stats = db.data.stats
-        if (m) {
-            if (m.sender && (user = db.data.users[m.sender])) {
-                user.exp += m.exp
-                user.limit -= m.limit * 1
+            stat.total += 1
+            stat.last = now
+            if (m.error == null) {
+               stat.success += 1
+               stat.lastSuccess = now
             }
-
-            let stat
-            if (m.plugin) {
-                let now = +new Date
-                if (m.plugin in stats) {
-                    stat = stats[m.plugin]
-                    if (!isNumber(stat.total))
-                        stat.total = 1
-                    if (!isNumber(stat.success))
-                        stat.success = m.error != null ? 0 : 1
-                    if (!isNumber(stat.last))
-                        stat.last = now
-                    if (!isNumber(stat.lastSuccess))
-                        stat.lastSuccess = m.error != null ? 0 : now
-                } else
-                    stat = stats[m.plugin] = {
-                        total: 1,
-                        success: m.error != null ? 0 : 1,
-                        last: now,
-                        lastSuccess: m.error != null ? 0 : now
-                    }
-                stat.total += 1
-                stat.last = now
-                if (m.error == null) {
-                    stat.success += 1
-                    stat.lastSuccess = now
-                }
-            }
-        }
-
-        try {
-            if (!opts['noprint']) await printMessage(m, this)
-        } catch (e) {
-            console.log(m, m.quoted, e)
-        }
-    }
+         }
+      }
+      try {
+         if (!opts['noprint']) await printMessage(m, this)
+      } catch (e) {
+         console.log(m, m.quoted, e)
+      }
+   }
 }
 
 /**

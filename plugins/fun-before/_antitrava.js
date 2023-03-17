@@ -1,3 +1,5 @@
+import db from '../../lib/database.js'
+
 export async function before(m, { conn, isAdmin, isBotAdmin }) {
    if (m.isBaileys && m.fromMe)
       return !0

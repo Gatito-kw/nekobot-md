@@ -34,6 +34,7 @@ let handler = async (m, { conn, text, usedPrefix, __dirname }) => {
       'main': 'PRINCIPAL',
       'info': 'INFO',
       'game': 'JUEGOS',
+      'economy': 'ECONOMIA',
       'rpg': 'RPG',
       'fun': 'DIVERSION',
       'sticker': 'STICKER',

@@ -49,6 +49,8 @@
       "chalk": "^5.0.0",
       "cheerio": "^1.0.0-rc.10",
       "colors": "^1.4.0",
+      "google-it": "^1.6.4",
+      "g-i-s": "^2.1.6",
       "enhanced-ms": "^2.2.0",
       "express": "^4.17.3",
       "file-type": "^17.1.1",

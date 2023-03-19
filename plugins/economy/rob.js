@@ -12,7 +12,7 @@ let handler = async (m, { conn, usedPrefix, command}) => {
    if (!(who in db.data.users)) return m.reply('El usuario no se encuentra en mi base de Datos.')
    let _user = db.data.users[who]
    let amount = Math.floor(Math.random() * (50 - 150) + 150) + 1
-   if (user.money < 150) return m.reply('El usuario no tiene suficiente Dinero.')
+   if (_user.money < 150) return m.reply('El usuario no tiene suficiente Dinero.')
    user.money += amount * 1
    _user.money -= amount * 1
    user.lastrob = new Date * 1

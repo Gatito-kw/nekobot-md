@@ -100,6 +100,8 @@ export async function handler(chatUpdate) {
                user.lastfishing = 0
             if (!isNumber(user.lastmining))
                user.lastmining = 0
+            if (!isNumber(user.lastrob))
+               user.lastrob = 0
          } else db.data.users[m.sender] = {
             registered: false,
             regTime: 0,
@@ -133,6 +135,7 @@ export async function handler(chatUpdate) {
             lastadventure: 0,
             lastfishing: 0,
             lastmining: 0,
+            lastrob: 0,
          }
          let chat = db.data.chats[m.chat]
          if (typeof chat !== 'object')

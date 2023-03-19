@@ -1,6 +1,6 @@
 import db from '../../lib/database.js'
 
-const cooldown = 60000 // 1 minuto
+const cooldown = 30000 // 30 Segundos
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
    let today = new Date()
@@ -8,7 +8,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
       let user = db.data.users[m.sender]
       global.game.slot = global.game.slot ? global.game.slot : {}
       let time = global.game.slot[m.sender] + cooldown
-      if (new Date - time < cooldown) return m.reply(`🕓 Espera *${(time - new Date()).toTimeString()}* para volver a Jugar.`)
+      if (new Date - time < cooldown) return m.reply(`🧭 Espera *${(time - new Date()).toTimeString()}* para volver a Jugar.`)
       let emojis = ['🍌', '🍉', '🍇']
       let a = Math.floor(Math.random() * emojis.length)
       let b = Math.floor(Math.random() * emojis.length)

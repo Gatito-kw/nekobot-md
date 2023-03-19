@@ -158,6 +158,11 @@ global.rpg = {
   }
 }
 
+// Games mini Database
+global.game = {
+   slot: {},
+   math: {},
+}
 
 let file = fileURLToPath(import.meta.url)
 watchFile(file, () => {

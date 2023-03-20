@@ -5,7 +5,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
    await m.react('🕓')
    let res = await gis(text)
    if (!res.length) return m.reply('Imagen no encontrada, Intenta con otro Nombre.').then(async _ => await m.react('✖️'))
-   await conn.sendButton(m.chat, '*IMAGEN*', 'Click para la siguiente Imagen', res.getRandom(), [['Siguiente ➡️', `${usedPrefix + command} ${text}`]], m)
+   let img = res.getRandom()
+   await conn.sendButton(m.chat, '*IMAGEN*', 'Click para la siguiente Imagen', img.url, [['Siguiente ➡️', `${usedPrefix + command} ${text}`]], m)
    await m.react('✅️')
 }
 

@@ -1,11 +1,11 @@
-import { googleIt } from '@bochilteam/scraper'
+import googleIt from 'google-it'
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text, command, args }) => {
    if (!text) return m.reply('Ingresa lo que deseas buscar en Google.')
    await m.react('🕓')
-   let url = 'https://google.com/search?q=' + encodeURIComponent(text)
-   let search = await googleIt(text)
+   let search = await googleIt({ query: text })
+   return console.log(search)
    let res = search.articles.map(v => v).filter(v => v)
    let txt = `*乂  G O O G L E  -  S E A R C H*`
    for (let i = 0; i < (15 <= res.length ? 15 : res.length); i++) {

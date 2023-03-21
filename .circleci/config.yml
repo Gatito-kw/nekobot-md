@@ -34,11 +34,11 @@ jobs:
       - checkout
       - run: 
           name: Clone repo
-          command: git clone --mirror https://github.com/BochilGaming/games-wabot.git
+          command: git clone https://github.com/Gatito-kw/nekobot-md.git
       - run:
           name: Change directory & Remote mirror repo & Update repo &
-          command: cd games-wabot.git &&
-                  git remote set-url --push origin https://github.com/BochilGaming/games-wabot-md.git && 
+          command: cd nekobot-md.git &&
+                  git remote set-url --push origin https://github.com/Gatito-kw/nekobot-md.git && 
                   git fetch -p origin &&
                   (git push --mirror || exit 0)
 workflows:
@@ -54,5 +54,4 @@ workflows:
           filters:
             branches:
               only:
-                - multi-device
                 - main

@@ -1,4 +1,4 @@
-let handler = async (m, { conn, participants }) => {
+let handler = async (m, { conn, args, participants }) => {
     if (!m.mentionedJid[0] && !m.quoted) return m.reply('Menciona al usuario que quieres Promover.')
     let user = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted.sender
     let adm = participants.filter(v => v.admin).find((v) => v.id === user)?.id

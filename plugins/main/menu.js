@@ -77,10 +77,10 @@ let handler = async (m, { conn, text, usedPrefix, __dirname }) => {
       .replace('@user', '@' + m.sender.split`@`[0])
       .replace('@greeting', greeting)
    for (let tag in groups) {
-      _text += `ㅤ𓐄ㅤ·  ࣪왕  ،    *${tag.replace(tag, tags[tag])}*\n`
+      _text += `*乂  ${tag.replace(tag, tags[tag])}*\n`
       for (let menu of groups[tag]) {
          for (let help of menu.help) {
-               _text += `              ◦  ${menu.prefix ? help : usedPrefix + help}${menu.use ? `  ${menu.use}` : ''}\n`
+               _text += `	◦  ${menu.prefix ? help : usedPrefix + help}${menu.use ? `  ${menu.use}` : ''}\n`
          }
       }
       _text += '\n'

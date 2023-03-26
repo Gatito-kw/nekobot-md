@@ -1,3 +1,4 @@
+import fetch from 'node-fetch'
 import yts from 'yt-search'
 
 let handler = async (m, { conn, command, text, usedPrefix }) => {
@@ -7,15 +8,24 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
 	if (!vid) return m.reply('No se encontraron resultados, intente con un nombre más Corto.').then(async _ => await m.react('✖️'))
 	let { title, description, thumbnail, videoId, timestamp, views, ago, url, author } = vid
 	let link = 'https://youtu.be/' + videoId
-	let txt = `*乂 YouTube - Play*\n\n`
+	let txt = `*乂  Y O U T U B E  -  P L A Y*\n\n`
        txt += `	◦  *Titulo* : ${title || '×'}\n`
        txt += `	◦  *Duración* : ${timestamp || '×'}\n`
        txt += `	◦  *Visitas* : ${sNum(views) || views || '×'}\n`
        txt += `	◦  *Publicado* : ${eYear(ago) || ago || '×'}\n`
        txt += `	◦  *Autor* : ${author.name || '×'}\n`
-       txt += `	◦  *Id* : ${videoId}\n`
-       txt += `	◦  *Url* : ${link}\n`
-    await conn.sendButton(m.chat, txt, 'Elija un formato de descarga mp3 o mp4.', `${thumbnail}`, [['Audio 🎧', `${usedPrefix}ytmp3 ${link} --yes`], ['Video 🎥', `${usedPrefix}ytmp4 ${link} --yes`]], m)
+       txt += `	◦  *Url* : ${link}\n\n`
+       txt += `Responde a este mensaje con *Video* o *Audio*.`
+    let img = await (await fetch(thumbnail)).buffer()
+    await conn.sendUrl(m.chat, txt, m, {
+         externalAdReply: {
+            mediaType: 1,
+            renderLargerThumbnail: true,
+            thumbnail: img,
+            thumbnailUrl: img,
+            title: global.textbot.title,
+         }
+      })
     await m.react('✅')
 }
 

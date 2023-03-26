@@ -6,7 +6,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
    if (!res.ok) return m.react('❌')
    let json = await res.json()
    if (!json.url) return m.react('❌')
-   await conn.sendButton(m.chat, '*RANDOM WAIFU*', 'Click para la siguiente Imagen', json.url, [['Siguiente ➡️', `${usedPrefix + command}`]], m)
+   await conn.sendFile(m.chat, json.url, 'waifu.png', '*RANDOM WAIFU*', m)
    await m.react('✅')
 }
 

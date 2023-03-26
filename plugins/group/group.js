@@ -2,10 +2,6 @@ import db from '../../lib/database.js'
 
 let handler = async (m, { conn, args, usedPrefix, command, groupMetadata }) => {
    let group = groupMetadata
-   let rows = [
-      ['Abrir', `${usedPrefix + command} open`],
-      ['Cerrar', `${usedPrefix + command} close`]
-   ]
    if (args[0] === 'open') {
       if (!group.announce) return m.reply('El grupo ya está Abierto.')
       await conn.groupSettingUpdate(m.chat, 'not_announcement')
@@ -15,7 +11,7 @@ let handler = async (m, { conn, args, usedPrefix, command, groupMetadata }) => {
       await conn.groupSettingUpdate(m.chat, 'announcement')
       await m.reply('🚩 Grupo cerrado con Exito.')
    } else {
-      await conn.sendList(m.chat, null, `*Configurar Grupo. 🍟*\n\n	◦  *Estado* : [ ${!group.announce ? 'OPEN' : 'CLOSE'} ]`, null, 'Tap!', [['CONFIGURAR GRUPO', rows]], m)
+      await m.reply(`*Configurar Grupo*. Escriba open para abrir y close para Cerrar.`)
    }
 }
 

@@ -2,10 +2,6 @@ import db from '../../lib/database.js'
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
    let chat = db.data.chats[m.chat]
-   let rows = [
-      ['Activar', `${usedPrefix + command} on`],
-      ['Desactivar', `${usedPrefix + command} off`]
-   ]
    if (args[0] === 'on') {
       if (chat.antiTraba) return m.reply('Anti-Traba ya esta Activada.')
       chat.antiTraba = true
@@ -15,7 +11,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
       chat.antiTraba = false
       await m.reply('🚩 Anti-Traba desactivada para este Grupo.')
    } else {
-      await conn.sendList(m.chat, null, `*Configurar Anti-Traba. 🍟*\n\n	◦  *Estado* : [ ${chat.antiTraba ? 'ON' : 'OFF'} ]`, null, 'Tap!', [['CONFIGURAR ANTI-TRABA', rows]], m)
+      await m.reply(`*Configurar Anti-Traba*. Escriba on para activar y off para Desactivar.`)
    }
 }
 

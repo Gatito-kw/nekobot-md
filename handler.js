@@ -387,6 +387,10 @@ export async function handler(chatUpdate) {
                fail('private', m, this)
                   continue
             }
+            if (plugin.nsfw && m.isGroup && !db.data.chats[m.chat].isNsfw) {
+               fail('nsfw', m, this)
+                  continue
+            }
             m.isCommand = true
             let xp = 'exp' in plugin ? parseInt(plugin.exp) : 17
             if (xp > 200)
@@ -615,6 +619,7 @@ global.dfail = (type, m, conn) => {
       private: 'ⓘ Este comando solo puede ser utilizado en mi Chat *Privado*.',
       admin: 'ⓘ Este comando solo puede ser utilizado por los *Administradores* del Grupo.',
       botAdmin: 'ⓘ La bot deve ser *Administradora* para ejecutar este Comando.',
+      nsfw: 'ⓘ El contenido *Nsfw* esta prohibido en este Grupo.',
    }[type]
    if (msg) return m.reply(msg)
 }

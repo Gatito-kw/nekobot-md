@@ -27,7 +27,7 @@ let handler = async (m, { conn, text, command, args }) => {
 }
 
 handler.help = ['google']
-handler.tags = ['internet']
+handler.tags = ['search']
 handler.command = ['google'] 
 
 handler.react_error = true

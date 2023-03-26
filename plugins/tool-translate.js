@@ -23,9 +23,11 @@ let handler = async (m, { args, usedPrefix, command }) => {
     if (!text && m.quoted && m.quoted.text) text = m.quoted.text
 
     try {
+       if (text.length > 3900) return m.reply('El texto excede el limite de 3900 Caracteres.')
        let result = await translate(text, { to: lang, autoCorrect: true }).catch(_ => null) 
        await m.reply(result.text)
     } catch (e) {
+        await m.reply(`${JSON.stringify(e, null, 1)}`)
         return m.reply(err)
     } 
 

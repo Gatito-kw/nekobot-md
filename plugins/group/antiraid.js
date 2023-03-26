@@ -2,10 +2,6 @@ import db from '../../lib/database.js'
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
    let chat = db.data.chats[m.chat]
-   let rows = [
-      ['Activar', `${usedPrefix + command} on`],
-      ['Desactivar', `${usedPrefix + command} off`]
-   ]
    if (args[0] === 'on') {
       if (chat.antiRaid) return m.reply('Anti-Raid ya esta Activada.')
       chat.antiRaid = true
@@ -15,7 +11,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
       chat.antiRaid = false
       await m.reply('🚩 Anti-Raid desactivada para este Grupo.')
    } else {
-      await conn.sendList(m.chat, null, `*Configurar Anti-Raid. 🍟*\n\n	◦  *Estado* : [ ${chat.antiRaid ? 'ON' : 'OFF'} ]`, null, 'Tap!', [['CONFIGURAR ANTI-RAID', rows]], m)
+      await m.reply(`*Configurar Anti-Raid*. Escriba on para activar y off para Desactivar.`)
    }
 }
 

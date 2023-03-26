@@ -49,8 +49,8 @@ global.fakebot = {
 }
 
 // Sticker WM
-global.packname = '~>'
-global.author = 'Neko Bot'
+global.packname = 'Sticker.ly'
+global.author = 'NK - ねこ'
 
 global.wmbot = {
    name: 'Sticker.ly',

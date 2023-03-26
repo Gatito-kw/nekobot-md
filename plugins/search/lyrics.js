@@ -7,7 +7,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
    if (!res.ok) return m.react('❌')
    let json = await res.json()
    if (!json.lyrics) return m.reply('Letra no encontrada, intenta con otro Titulo.').then(async _ => await m.react('✖️'))
-   let txt = `*乂 Lyrics - Search*\n\n`
+   let txt = `*乂  L Y R I C S  -  S E A R C H*\n\n`
       txt += `	◦  *Titulo* : ${json.title}\n`
       txt += `	◦  *Artista* : ${json.artist}\n\n`
       txt += `${json.lyrics}`

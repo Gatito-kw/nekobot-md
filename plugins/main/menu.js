@@ -38,7 +38,7 @@ let handler = async (m, { conn, text, usedPrefix, __dirname }) => {
       'rpg': 'RPG',
       'fun': 'DIVERSION',
       'sticker': 'STICKER',
-      'convert': 'CONVERTIDOR',
+      'converter': 'CONVERTIDOR',
       'image': 'IMAGEN',
       'maker': 'MAKER',
       'group': 'GRUPO',
@@ -46,7 +46,6 @@ let handler = async (m, { conn, text, usedPrefix, __dirname }) => {
       'downloader': 'DESCARGAS',
       'search': 'BUSQUEDA',
       'tool': 'AJUSTES',
-      'database': 'DATABASE',
       'nsfw': 'NSFW', 
       'owner': 'CREADOR', 
       'advanced': 'AVANZADO',
@@ -77,21 +76,21 @@ let handler = async (m, { conn, text, usedPrefix, __dirname }) => {
       .replace('@user', '@' + m.sender.split`@`[0])
       .replace('@greeting', greeting)
    for (let tag in groups) {
-      _text += `*乂  ${tag.replace(tag, tags[tag])}*\n`
+      _text += `          ㅤ𓐄ㅤ\n          *× ${tag.replace(tag, tags[tag])}*`
       for (let menu of groups[tag]) {
          for (let help of menu.help) {
-               _text += `	◦  ${menu.prefix ? help : usedPrefix + help}${menu.use ? `  ${menu.use}` : ''}\n`
+               _text += `\n          ◦  ${menu.prefix ? help : usedPrefix + help}${menu.use ? `  ${menu.use}` : ''}`
          }
       }
       _text += '\n'
    }
-   _text += `${global.textbot.footer}`
+   _text += `\n${global.textbot.footer}`
    await conn.sendUrl(m.chat, _text, m, {
       mentionedJid: [m.sender],
       externalAdReply: {
          mediaType: 1,
          renderLargerThumbnail: true,
-         sourceUrl: 'https://chat.whatsapp.com/NEKO',
+         sourceUrl: 'https://call.whatsapp.com/',   // https://chat.whatsapp.com/NEKO
          thumbnail: global.imgbot.neko3,
          thumbnailUrl: global.imgbot.neko3,
          title: global.textbot.title,

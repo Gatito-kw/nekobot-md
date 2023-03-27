@@ -1,6 +1,6 @@
 import db from '../../lib/database.js'
 
-let handler = async (m) => {
+let handler = async (m, { conn }) => {
    let setting = db.data.settings[conn.user.jid]
    if (setting.isBanned) return m.reply('El bot ya esta Baneado.')
    setting.isBanned = true

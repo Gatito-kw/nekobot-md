@@ -529,7 +529,7 @@ export async function participantsUpdate({ id, participants, action }) {
    let _text = ''
    switch (action) {
       case 'add':
-      case 'remove':
+      // case 'remove':
          if (chat.welcome) {
             let groupMetadata = await this.groupMetadata(id)
             for (let user of participants) {

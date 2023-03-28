@@ -58,6 +58,8 @@ export async function handler(chatUpdate) {
                user.limit = 0
             if (!isNumber(user.money))
                user.money = 0
+            if (!isNumber(user.bank))
+               user.bank = 0
             
             if (!isNumber(user.afk))
                user.afk = 0
@@ -112,6 +114,7 @@ export async function handler(chatUpdate) {
             exp: 0,
             limit: 10,
             money: 0,
+            bank: 0,
             
             afk: 0,
             afkReason: '',
@@ -136,6 +139,7 @@ export async function handler(chatUpdate) {
             lastfishing: 0,
             lastmining: 0,
             lastrob: 0,
+            lastwork: 0,
          }
          let chat = db.data.chats[m.chat]
          if (typeof chat !== 'object')

@@ -12,7 +12,7 @@ let handler = async (m) => {
 }
 
 handler.help = ['daily']
-handler.tags = ['rpg']
+handler.tags = ['economy']
 handler.command = ['daily']
 
 handler.cooldown = cooldown

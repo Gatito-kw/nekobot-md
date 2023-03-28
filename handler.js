@@ -584,7 +584,7 @@ export async function groupsUpdate(groupsUpdate) {
  * @param {import('@adiwajshing/baileys').BaileysEventMap<unknown>['messages.delete']} message 
  */
 export async function deleteUpdate(message) {
-
+/*
     if (Array.isArray(message.keys) && message.keys.length > 0) {
         const tasks = await Promise.allSettled(message.keys.map(async (key) => {
             if (key.fromMe) return
@@ -611,6 +611,7 @@ Untuk mematikan fitur ini, ketik
         }))
         tasks.map(t => t.status === 'rejected' && console.error(t.reason))
     }
+*/
 }
 
 global.dfail = (type, m, conn) => {

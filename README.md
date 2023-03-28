@@ -1,1 +1,2 @@
-> **Warning**: Este bot está en desarrollo.
+> **Warning**:
+Este bot está en desarrollo.
